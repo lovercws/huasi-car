@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="$request.getContextPath()/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="$request.getContextPath()/resources/jquery/jquery-3.1.0.min.js"></script>
 <script src="$request.getContextPath()/resources/bootstrap/js/bootstrap.min.js"></script>
-<script src="$request.getContextPath()/resources/jquery/jquery.min.js"></script>
 <title>小墨科技商户后台系统</title>
 <style type="text/css">
 body {
@@ -75,8 +75,8 @@ body {
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="button">登录</button>
-        <button class="btn form-forgetPassword" type="button">忘记密码</button>
-        <button class="btn form-register" type="button">免费注册</button>
+        <button class="btn form-forgetPassword btn-link" type="button">忘记密码</button>
+        <button class="btn form-register btn-link" type="button">免费注册</button>
       </form>
     </div>
 </body>

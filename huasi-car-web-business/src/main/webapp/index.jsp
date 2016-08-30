@@ -24,6 +24,6 @@
 </style>
 </head>
 <body>
-	<jsp:forward page="/portal/login" />
+	<jsp:forward page="/portal/login/goLogin" />
 </body>
 </html>
