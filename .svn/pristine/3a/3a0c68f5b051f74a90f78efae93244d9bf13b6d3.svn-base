@@ -1,0 +1,71 @@
+package org.huasi.car.order.enums;
+
+/**
+ * @desc 商铺订单状态
+ * @author ganliang
+ * @version 2016年8月22日 上午10:26:05
+ */
+public enum OrderStatusEnum {
+	//////////////////////////////// 用户操作
+	/**
+	 * 用户取消订单
+	 */
+	USER_ORDER_CANCEL(0),
+
+	/**
+	 * 订单生成 未付款
+	 */
+	USER_ORDER_NOT_PAYMENT(1),
+
+	/**
+	 * 订单付款失败
+	 */
+	USER_ORDER_PAYMENT_FAILURE(2),
+
+	/**
+	 * 订单付款成功 等待商户同意
+	 */
+	USER_ORDER_PAYMENT_SUCCESS(4),
+
+	/**
+	 * 用户点击订单完成(未评价)
+	 */
+	USER_ORDER_FINISH(6),
+	
+	/**
+	 * 用户订单评论完毕
+	 */
+	USER_ORDER_COMMENT(8),
+	
+	/**
+	 * 用户订单退款
+	 */
+	USER_ORDER_REFUND(10),
+
+	//////////////////////////////// 商户操作
+	/**
+	 * 商户取消订单
+	 */
+	MERCHANT_ORDER_CANCEL(12),
+
+	/**
+	 * 商户同意下单
+	 */
+	MERCHANT_ORDER_AGREE(14),
+
+	/**
+	 * 用户到达时候,商户点击用户已到达
+	 */
+	MERCHANT_ORDER_ARRIVE(16);
+
+	/** 描述 */
+	private int status;
+
+	private OrderStatusEnum(int status) {
+		this.status = status;
+	}
+
+	public int value() {
+		return status;
+	}
+}

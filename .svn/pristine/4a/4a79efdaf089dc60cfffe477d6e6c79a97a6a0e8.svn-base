@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.comment.dao.impl.MerOrdCommLikeDaoImpl">
+	<resultMap id="MerOrdCommLikeResultMap" type="org.huasi.car.comment.entity.MerOrdCommLike">
+		<id column="cl_id" property="commlikeId" jdbcType="INTEGER" />
+		<result column="comm_id" property="commId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="cl_create_time" property="commlikeCreateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="MerOrdCommLikeColumn">
+		cl_id, comm_id, user_id, cl_create_time
+	</sql>
+
+	<!-- 对商铺服务订单的评论取消点赞 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		mer_ord_comm_like
+		where cl_id = #{commlikeId,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 获取商铺服务订单的评论的点赞 -->
+	<select id="listByColumn" resultMap="MerOrdCommLikeResultMap"
+		parameterType="map">
+		select 
+		<include refid="MerOrdCommLikeColumn"></include>
+		from mer_ord_comm_like
+		where comm_id = #{commId,jdbcType=INTEGER} and user_id =
+		#{userId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 对商铺服务订单的评论进行点赞 -->
+	<insert id="insert" parameterType="merOrdCommLike" useGeneratedKeys="true" keyProperty="commlikeId">
+		insert into mer_ord_comm_like
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="commlikeId != null">
+				cl_id,
+			</if>
+			<if test="commId != null">
+				comm_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="commlikeCreateTime != null">
+				cl_create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="commlikeId != null">
+				#{commlikeId,jdbcType=INTEGER},
+			</if>
+			<if test="commId != null">
+				#{commId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="commlikeCreateTime != null">
+				#{commlikeCreateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

@@ -1,0 +1,54 @@
+package org.huasi.car.controller.info;
+
+import java.util.List;
+
+import org.huasi.car.common.core.controller.BaseController;
+import org.huasi.car.common.core.response.HttpCode;
+import org.huasi.car.common.core.response.ResponseEntity;
+import org.huasi.car.common.core.utils.ValidateUtils;
+import org.huasi.car.info.entity.ActiveComment;
+import org.huasi.car.info.service.ActiveCommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+@RequestMapping("/info/comment")
+public class InfoCommentController extends BaseController {
+
+	@Autowired
+	private ActiveCommentService activeCommentService;
+
+	/**
+	 * 对动态进行评论
+	 * 
+	 * @param activeComment
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET })
+	public ResponseEntity commentActive(ActiveComment activeComment) {
+		activeComment = activeCommentService.addActiveComment(activeComment);
+		return new ResponseEntity();
+	}
+
+	/**
+	 * 获取动态下的所有评论
+	 * 
+	 * @param activeId 动态id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = { "/{activeId}" }, method = RequestMethod.GET)
+	public ResponseEntity getAllComment(@PathVariable String activeId) {
+		if (!ValidateUtils.isNumeric(activeId)) {
+			return new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, activeId);
+		}
+		List<ActiveComment> comments = activeCommentService.getActiveComment(activeId);
+		return new ResponseEntity(comments);
+	}
+
+}

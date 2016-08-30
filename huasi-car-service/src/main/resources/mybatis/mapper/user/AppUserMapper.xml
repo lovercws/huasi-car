@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.user.dao.impl.AppUserDaoImpl">
+	<resultMap id="AppUserResultMap" type="org.huasi.car.user.entity.AppUser">
+		<id column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+		<result column="phone_active" property="phoneActive" jdbcType="TINYINT" />
+		<result column="user_nickname" property="userNickname"
+			jdbcType="VARCHAR" />
+		<result column="avator_url" property="avatorUrl" jdbcType="VARCHAR" />
+		<result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+		<result column="email_active" property="emailActive" jdbcType="TINYINT" />
+		<result column="user_password" property="userPassword"
+			jdbcType="VARCHAR" />
+		<result column="user_desc" property="userDesc" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_ip" property="createIp" jdbcType="VARCHAR" />
+		<result column="last_login_time" property="lastLoginTime"
+			jdbcType="TIMESTAMP" />
+		<result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+		<result column="login_count" property="loginCount" jdbcType="INTEGER" />
+		<result column="user_sex" property="userSex" jdbcType="TINYINT" />
+		<result column="user_birthday" property="userBirthday"
+			jdbcType="TIMESTAMP" />
+		<result column="user_detail_area" property="userDetailArea"
+			jdbcType="VARCHAR" />
+		<result column="user_province" property="userProvince"
+			jdbcType="VARCHAR" />
+		<result column="user_city" property="userCity" jdbcType="VARCHAR" />
+		<result column="user_area" property="userArea" jdbcType="VARCHAR" />
+		<result column="user_status" property="userStatus" jdbcType="TINYINT" />
+		<result column="user_reg_type" property="userRegType" jdbcType="TINYINT" />
+		<result column="user_token" property="userToken" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="AppUserColumn">
+		user_id, user_name, user_phone, phone_active,
+		user_nickname, avator_url,
+		user_email,
+		email_active, user_password,
+		user_desc, create_time, create_ip, last_login_time,
+		last_login_ip,
+		login_count, user_sex, user_birthday, user_detail_area,
+		user_province,
+		user_city, user_area, user_status, user_reg_type, user_token
+	</sql>
+
+	<!-- 根据手机号码查询用户 -->
+	<select id="listByColumn" resultMap="AppUserResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="AppUserColumn" />
+		from app_user
+		where user_phone = #{userPhone}
+	</select>
+
+	<!-- 根据userid查询用户 -->
+	<select id="selectByPrimaryKey" resultMap="AppUserResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="AppUserColumn" />
+		from app_user
+		where user_id = #{userId}
+	</select>
+
+	<!-- 插入用户信息 -->
+	<insert id="insert" parameterType="appUser" useGeneratedKeys="true" keyProperty="userId">
+		insert into app_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="userPhone != null">
+				user_phone,
+			</if>
+			<if test="phoneActive != null">
+				phone_active,
+			</if>
+			<if test="userNickname != null">
+				user_nickname,
+			</if>
+			<if test="avatorUrl != null">
+				avator_url,
+			</if>
+			<if test="userEmail != null">
+				user_email,
+			</if>
+			<if test="emailActive != null">
+				email_active,
+			</if>
+			<if test="userPassword != null">
+				user_password,
+			</if>
+			<if test="userDesc != null">
+				user_desc,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createIp != null">
+				create_ip,
+			</if>
+			<if test="lastLoginTime != null">
+				last_login_time,
+			</if>
+			<if test="lastLoginIp != null">
+				last_login_ip,
+			</if>
+			<if test="loginCount != null">
+				login_count,
+			</if>
+			<if test="userSex != null">
+				user_sex,
+			</if>
+			<if test="userBirthday != null">
+				user_birthday,
+			</if>
+			<if test="userDetailArea != null">
+				user_detail_area,
+			</if>
+			<if test="userProvince != null">
+				user_province,
+			</if>
+			<if test="userCity != null">
+				user_city,
+			</if>
+			<if test="userArea != null">
+				user_area,
+			</if>
+			<if test="userStatus != null">
+				user_status,
+			</if>
+			<if test="userRegType != null">
+				user_reg_type,
+			</if>
+			<if test="userToken != null">
+				user_token,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName},
+			</if>
+			<if test="userPhone != null">
+				#{userPhone},
+			</if>
+			<if test="phoneActive != null">
+				#{phoneActive},
+			</if>
+			<if test="userNickname != null">
+				#{userNickname},
+			</if>
+			<if test="avatorUrl != null">
+				#{avatorUrl},
+			</if>
+			<if test="userEmail != null">
+				#{userEmail},
+			</if>
+			<if test="emailActive != null">
+				#{emailActive},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword},
+			</if>
+			<if test="userDesc != null">
+				#{userDesc},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="createIp != null">
+				#{createIp},
+			</if>
+			<if test="lastLoginTime != null">
+				#{lastLoginTime},
+			</if>
+			<if test="lastLoginIp != null">
+				#{lastLoginIp},
+			</if>
+			<if test="loginCount != null">
+				#{loginCount,jdbcType=INTEGER},
+			</if>
+			<if test="userSex != null">
+				#{userSex},
+			</if>
+			<if test="userBirthday != null">
+				#{userBirthday},
+			</if>
+			<if test="userDetailArea != null">
+				#{userDetailArea},
+			</if>
+			<if test="userProvince != null">
+				#{userProvince},
+			</if>
+			<if test="userCity != null">
+				#{userCity},
+			</if>
+			<if test="userArea != null">
+				#{userArea},
+			</if>
+			<if test="userStatus != null">
+				#{userStatus},
+			</if>
+			<if test="userRegType != null">
+				#{userRegType},
+			</if>
+			<if test="userToken != null">
+				#{userToken},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="batchUpdateByColumn" parameterType="map">
+		update app_user
+		<set>
+			<if test="avatorUrl != null">
+				avator_url = #{avatorUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="userNickname != null">
+				user_nickname = #{userNickname,jdbcType=VARCHAR},
+			</if>
+			<if test="userPhone != null">
+				user_phone = #{userPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userCity != null">
+				user_city = #{userCity,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=INTEGER}
+	</update>
+
+</mapper>

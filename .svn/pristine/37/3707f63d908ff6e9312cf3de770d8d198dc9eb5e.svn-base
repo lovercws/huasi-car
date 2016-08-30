@@ -1,0 +1,22 @@
+###wxpay
+wx.key=97c2b40f1032d7a0e631cdb563cdbc41
+
+##AppSecret
+wx.secret=6e360ffc74d63c28f155ac675ccfd8d4
+
+##wechat appId
+wx.appID=wx7f1866a885330eb2
+
+wx.mchID=1260208801
+
+wx.subMchID=1260208801
+
+wx.certLocalPath=/conf/cert.p12
+
+wx.certPassword=1260208801
+
+wx.ip=192.168.11.88
+
+wx.notify_url=http://192.168.11.88:8081/huasi-car-app/mer/paycall/wx
+
+wx.deviceInfo=WEB

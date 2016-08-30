@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.log.dao.impl.AppUserRegisterLogDaoImpl">
+	<resultMap id="AppUserRegisterLogResultMap" type="org.huasi.car.log.entity.AppUserRegisterLog">
+		<id column="log_id" property="logId" jdbcType="INTEGER" />
+		<result column="log_name" property="logName" jdbcType="VARCHAR" />
+		<result column="use_time" property="usetime" jdbcType="INTEGER" />
+		<result column="log_content" property="logContent" jdbcType="VARCHAR" />
+		<result column="create_time" property="logCreateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="AppUserRegisterLogColumn">
+		log_id, log_name, user_time, log_content, create_time
+	</sql>
+
+	<!-- 添加app用户手机注册日志 -->
+	<insert id="insert" parameterType="appUserRegisterLog">
+		insert into
+		app_user_register_log(log_name, use_time, log_content, create_time)
+		values(#{logName},#{usetime},#{logContent},#{logCreateTime})
+	</insert>
+</mapper>

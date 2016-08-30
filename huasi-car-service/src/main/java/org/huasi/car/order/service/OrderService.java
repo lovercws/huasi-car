@@ -1,0 +1,70 @@
+package org.huasi.car.order.service;
+
+import java.util.List;
+
+import org.huasi.car.order.entity.Order;
+import org.huasi.car.order.entity.OrderDetail;
+import org.huasi.car.payment.wxpay.exception.WXPayException;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.DEFAULT, readOnly = true)
+public interface OrderService {
+
+	/**
+	 * 下单
+	 * @param order
+	 * @param ordDetails 
+	 * @return
+	 */
+	public Order order(Order order, List<OrderDetail> ordDetails);
+
+	/**
+	 * app手机支付
+	 * @param orderId 订单id
+	 * @param payWay 支付方式
+	 * @param orderIp 下单ip
+	 * @param referenceUrl 下单链接
+	 * @return
+	 * @throws WXPayException 
+	 */
+	public Object appPayment(String orderId, String payWay, String orderIp, String referenceUrl) throws WXPayException;
+	
+	/**
+	 * 根据订单id 获取订单信息
+	 * @param orderId
+	 * @return
+	 */
+	public Order getOrderById(String orderId);
+
+	/**
+	 * 取消订单
+	 * @param orderId 订单id
+	 * @param userId 用户id
+	 * @return 
+	 * @throws WXPayException 
+	 */
+	public boolean cancelOrder(String orderId, String userId) throws WXPayException;
+
+	/**
+	 * 微信支付回调
+	 * @param return_code SUCCESS/FAIL SUCCESS表示商户接收通知成功并校验成功
+	 * @param result_code SUCCESS/FAIL 业务结果
+	 * @param result_msg 返回信息，如非空，为错误原因;签名失败;参数格式校验错误
+	 * @param out_trade_no 商户订单流水号
+	 * @param transaction_id 微信订单号
+	 * @return
+	 */
+	boolean wxAppPayCall(String return_code, String result_code, String result_msg, String out_trade_no,
+			String transaction_id);
+
+	/**
+	 * 根据用户id来获取订单
+	 * @param userId
+	 * @param orderStatus
+	 * @return
+	 */
+	public List<Order> getOrderByUserId(String userId, String orderStatus);
+
+}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="app_user_jpush" >
+  <resultMap id="BaseResultMap" type="com.huasi.car.user.bean.AppUserJpush" >
+    <id column="jp_id" property="jpushId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="jp_tags" property="jpushTags" jdbcType="VARCHAR" />
+    <result column="jp_alias" property="jpushAlias" jdbcType="VARCHAR" />
+    <result column="jp_registrationid" property="jpushRegistrationid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jp_id, user_id, jp_tags, jp_alias, jp_registrationid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_user_jpush
+    where jp_id = #{jpushId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from app_user_jpush
+    where jp_id = #{jpushId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huasi.car.user.bean.AppUserJpush" >
+    insert into app_user_jpush (jp_id, user_id, jp_tags, 
+      jp_alias, jp_registrationid)
+    values (#{jpushId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{jpushTags,jdbcType=VARCHAR}, 
+      #{jpushAlias,jdbcType=VARCHAR}, #{jpushRegistrationid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huasi.car.user.bean.AppUserJpush" >
+    insert into app_user_jpush
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jpushId != null" >
+        jp_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="jpushTags != null" >
+        jp_tags,
+      </if>
+      <if test="jpushAlias != null" >
+        jp_alias,
+      </if>
+      <if test="jpushRegistrationid != null" >
+        jp_registrationid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jpushId != null" >
+        #{jpushId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="jpushTags != null" >
+        #{jpushTags,jdbcType=VARCHAR},
+      </if>
+      <if test="jpushAlias != null" >
+        #{jpushAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="jpushRegistrationid != null" >
+        #{jpushRegistrationid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huasi.car.user.bean.AppUserJpush" >
+    update app_user_jpush
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="jpushTags != null" >
+        jp_tags = #{jpushTags,jdbcType=VARCHAR},
+      </if>
+      <if test="jpushAlias != null" >
+        jp_alias = #{jpushAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="jpushRegistrationid != null" >
+        jp_registrationid = #{jpushRegistrationid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jp_id = #{jpushId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huasi.car.user.bean.AppUserJpush" >
+    update app_user_jpush
+    set user_id = #{userId,jdbcType=INTEGER},
+      jp_tags = #{jpushTags,jdbcType=VARCHAR},
+      jp_alias = #{jpushAlias,jdbcType=VARCHAR},
+      jp_registrationid = #{jpushRegistrationid,jdbcType=VARCHAR}
+    where jp_id = #{jpushId,jdbcType=INTEGER}
+  </update>
+</mapper>

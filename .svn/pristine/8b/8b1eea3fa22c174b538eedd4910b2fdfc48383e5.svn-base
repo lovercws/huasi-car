@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.info.dao.impl.ActiveCommentDaoImpl">
+
+	<resultMap id="ActiveCommentResultMap" type="org.huasi.car.info.entity.ActiveComment">
+		<id column="comm_id" property="activeCommId" jdbcType="INTEGER" />
+		<result column="active_id" property="activeId" jdbcType="INTEGER" />
+		<result column="cl_id" property="activeClassifyId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="comm_content" property="activeCommContent"
+			jdbcType="VARCHAR" />
+		<result column="comm_img" property="activeCommImg" jdbcType="INTEGER" />
+		<result column="comm_status" property="activeCommStatus"
+			jdbcType="SMALLINT" />
+		<result column="create_time" property="activeCommCreateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="ActiveCommentColumn">
+		comm_id, active_id, cl_id, user_id,
+		comm_content,
+		comm_img,comm_status,create_time
+	</sql>
+
+	<!-- 获取某个动态下的所有评论 -->
+	<select id="listByColumn" resultMap="ActiveCommentResultMap"
+		parameterType="map">
+		select
+		<include refid="ActiveCommentColumn" />
+		from info_comment
+		<where>
+			<if test="activeId != null and activeId != ''">
+				and active_id=#{activeId,jdbcType=INTEGER}
+			</if>
+			<if test="activeCommStatus != null and activeCommStatus != ''">
+				and comm_status = #{activeCommStatus,jdbcType=SMALLINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 对某个动态进行评论 -->
+	<insert id="insert" parameterType="activeComment"
+		useGeneratedKeys="true" keyProperty="activeCommId">
+		insert into info_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="activeCommId != null">
+				comm_id,
+			</if>
+			<if test="activeId != null">
+				active_id,
+			</if>
+			<if test="activeClassifyId != null">
+				cl_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="activeCommContent != null">
+				comm_content,
+			</if>
+			<if test="activeCommImg != null">
+				comm_img,
+			</if>
+			<if test="activeCommStatus != null">
+				comm_status,
+			</if>
+			<if test="activeCommCreateTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="activeCommId != null">
+				#{activeCommId,jdbcType=INTEGER},
+			</if>
+			<if test="activeId != null">
+				#{activeId,jdbcType=INTEGER},
+			</if>
+			<if test="activeClassifyId != null">
+				#{activeClassifyId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="activeCommContent != null">
+				#{activeCommContent,jdbcType=VARCHAR},
+			</if>
+			<if test="activeCommImg != null">
+				#{activeCommImg,jdbcType=VARCHAR},
+			</if>
+			<if test="activeCommStatus != null">
+				#{activeCommStatus,jdbcType=SMALLINT},
+			</if>
+			<if test="activeCommCreateTime != null">
+				#{activeCommCreateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

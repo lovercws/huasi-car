@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mer_order" >
+  <resultMap id="BaseResultMap" type="com.huasi.car.order.bean.MerOrder" >
+    <id column="ord_id" property="ordId" jdbcType="INTEGER" />
+    <result column="ord_code" property="ordCode" jdbcType="VARCHAR" />
+    <result column="srv_id" property="srvId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="ord_total_price" property="ordTotalPrice" jdbcType="REAL" />
+    <result column="ord_status" property="ordStatus" jdbcType="BIT" />
+    <result column="ord_pay_type" property="ordPayType" jdbcType="BIT" />
+    <result column="ord_create_time" property="ordCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ord_id, ord_code, srv_id, user_id, ord_total_price, ord_status, ord_pay_type, ord_create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mer_order
+    where ord_id = #{ordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mer_order
+    where ord_id = #{ordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huasi.car.order.bean.MerOrder" >
+    insert into mer_order (ord_id, ord_code, srv_id, 
+      user_id, ord_total_price, ord_status, 
+      ord_pay_type, ord_create_time)
+    values (#{ordId,jdbcType=INTEGER}, #{ordCode,jdbcType=VARCHAR}, #{srvId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{ordTotalPrice,jdbcType=REAL}, #{ordStatus,jdbcType=BIT}, 
+      #{ordPayType,jdbcType=BIT}, #{ordCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huasi.car.order.bean.MerOrder" >
+    insert into mer_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordId != null" >
+        ord_id,
+      </if>
+      <if test="ordCode != null" >
+        ord_code,
+      </if>
+      <if test="srvId != null" >
+        srv_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="ordTotalPrice != null" >
+        ord_total_price,
+      </if>
+      <if test="ordStatus != null" >
+        ord_status,
+      </if>
+      <if test="ordPayType != null" >
+        ord_pay_type,
+      </if>
+      <if test="ordCreateTime != null" >
+        ord_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordId != null" >
+        #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="ordCode != null" >
+        #{ordCode,jdbcType=VARCHAR},
+      </if>
+      <if test="srvId != null" >
+        #{srvId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="ordTotalPrice != null" >
+        #{ordTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="ordStatus != null" >
+        #{ordStatus,jdbcType=BIT},
+      </if>
+      <if test="ordPayType != null" >
+        #{ordPayType,jdbcType=BIT},
+      </if>
+      <if test="ordCreateTime != null" >
+        #{ordCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huasi.car.order.bean.MerOrder" >
+    update mer_order
+    <set >
+      <if test="ordCode != null" >
+        ord_code = #{ordCode,jdbcType=VARCHAR},
+      </if>
+      <if test="srvId != null" >
+        srv_id = #{srvId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="ordTotalPrice != null" >
+        ord_total_price = #{ordTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="ordStatus != null" >
+        ord_status = #{ordStatus,jdbcType=BIT},
+      </if>
+      <if test="ordPayType != null" >
+        ord_pay_type = #{ordPayType,jdbcType=BIT},
+      </if>
+      <if test="ordCreateTime != null" >
+        ord_create_time = #{ordCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ord_id = #{ordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huasi.car.order.bean.MerOrder" >
+    update mer_order
+    set ord_code = #{ordCode,jdbcType=VARCHAR},
+      srv_id = #{srvId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      ord_total_price = #{ordTotalPrice,jdbcType=REAL},
+      ord_status = #{ordStatus,jdbcType=BIT},
+      ord_pay_type = #{ordPayType,jdbcType=BIT},
+      ord_create_time = #{ordCreateTime,jdbcType=TIMESTAMP}
+    where ord_id = #{ordId,jdbcType=INTEGER}
+  </update>
+</mapper>

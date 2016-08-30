@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="C:/Users/Administrator/.m2/repository/mysql/mysql-connector-java/5.1.21/mysql-connector-java-5.1.21.jar" />
+	<!-- 去掉注释 -->
+	<context id="context1">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.11.25:3306/car-service" userId="root"
+			password="123" />
+
+		<javaModelGenerator targetPackage="com.huasi.car.merchant.bean"
+			targetProject="car-service">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="com.huasi.car.merchant.mapper"
+			targetProject="car-service">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- <javaClientGenerator targetPackage="com.huasi.car.user.dao" targetProject="car-service" 
+			type="XMLMAPPER"> <property name="enableSubPackages" value="true" /> </javaClientGenerator> -->
+
+		<!-- 商家类别表 -->
+		<table schema="MerClassify" tableName="mer_classify"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="cl"
+				replaceString="classify" />
+		</table>
+
+		<!-- 商家排序规则（数据字典表） -->
+		<table tableName="mer_ord_rule" schema="MerOrdRule"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="ru"
+				replaceString="ordRule" />
+		</table>
+
+		<!-- 商家店铺表 -->
+		<table tableName="merchant" schema="Merchant"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+
+		<!-- 店铺描述图片表 -->
+		<table tableName="mer_desc_img" schema="MerDescImg"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+
+		<!-- 店铺收藏表 -->
+		<table tableName="mer_collect" schema="MerCollect"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="clt"
+				replaceString="collect" />
+		</table>
+
+		<!-- 店铺服务表 -->
+		<table tableName="mer_service" schema="MerService"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="cl"
+				replaceString="classify" />
+		</table>
+
+		<!-- 服务描述图片表 -->
+		<table tableName="mer_srv_desc_img" schema="MerSrvDescImg"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+
+		<!-- 服务收藏表 -->
+		<table tableName="mer_serv_collect" schema="MerServCollect"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="clt"
+				replaceString="collect" />
+		</table>
+
+		<!-- 精品推荐表 -->
+		<table tableName="mer_recom_serv" schema="MerRecomServ"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="rs"
+				replaceString="recomServ" />
+		</table>
+
+		<!-- 热门搜索表 -->
+		<table tableName="mer_hot_search" schema="MerHotSearch"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="hs"
+				replaceString="hotSearch" />
+		</table>
+
+		<!-- 商铺分类-商铺中间表 -->
+		<table tableName="mer_cl_mer" schema="MerClMer"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableUpdateByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<columnRenamingRule searchString="cl"
+				replaceString="classify" />
+		</table>
+
+	</context>
+</generatorConfiguration>

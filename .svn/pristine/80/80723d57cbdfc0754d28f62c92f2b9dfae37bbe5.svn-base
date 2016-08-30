@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.system.dao.impl.SysFeedbackDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<resultMap id="SysFeedbackResultMap" type="org.huasi.car.system.entity.SysFeedback">
+		<id column="f_id" property="feedbackId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="f_title" property="feedbackTitle" jdbcType="VARCHAR" />
+		<result column="f_content" property="feedbackContent" jdbcType="VARCHAR" />
+		<result column="img_url" property="feedbackImgUrl" jdbcType="VARCHAR" />
+		<result column="f_status" property="feedbackStatus" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="SysFeedbackColumn">
+		f_id, user_id, f_title, f_content,
+		img_url,f_status,create_time
+	</sql>
+
+	<!-- 获取所有的意见反馈 -->
+	<select id="listByColumn" resultMap="SysFeedbackResultMap"
+		parameterType="map">
+		select
+		<include refid="SysFeedbackColumn" />
+		from sys_feedback order by create_time desc
+	</select>
+
+	<!-- 插入用户发出的意见反馈 -->
+	<insert id="insert" parameterType="sysFeedback"
+		useGeneratedKeys="true" keyProperty="feedbackId">
+		insert into sys_feedback
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="feedbackId != null">
+				f_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="feedbackTitle != null">
+				f_title,
+			</if>
+			<if test="feedbackContent != null">
+				f_content,
+			</if>
+			<if test="feedbackImgUrl != null">
+				img_url,
+			</if>
+			<if test="feedbackStatus != null">
+				f_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="feedbackId != null">
+				#{feedbackId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="feedbackTitle != null">
+				#{feedbackTitle},
+			</if>
+			<if test="feedbackContent != null">
+				#{feedbackContent},
+			</if>
+			<if test="feedbackImgUrl != null">
+				#{feedbackImgUrl},
+			</if>
+			<if test="feedbackStatus != null">
+				#{feedbackStatus},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

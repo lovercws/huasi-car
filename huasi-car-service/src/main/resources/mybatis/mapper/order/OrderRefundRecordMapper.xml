@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="order_refund_record">
+	<resultMap id="OrderRefundRecordResultMap" type="org.huasi.car.order.entity.OrderRefundRecord">
+		<id column="refund_id" property="refundId" jdbcType="INTEGER" />
+		<result column="ord_id" property="orderId" jdbcType="INTEGER" />
+		<result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+		<result column="out_refund_no" property="outRefundNo" jdbcType="VARCHAR" />
+		<result column="refund_no" property="refundNo" jdbcType="VARCHAR" />
+		<result column="transaction_id" property="transactionId"
+			jdbcType="VARCHAR" />
+		<result column="device_info" property="deviceInfo" jdbcType="VARCHAR" />
+		<result column="refund_amount" property="refundAmount"
+			jdbcType="INTEGER" />
+		<result column="refund_status" property="refundStatus"
+			jdbcType="VARCHAR" />
+		<result column="refund_way" property="refundWay" jdbcType="VARCHAR" />
+		<result column="refund_request_time" property="refundRequestTime"
+			jdbcType="TIMESTAMP" />
+		<result column="refund_success_time" property="refundSuccessTime"
+			jdbcType="TIMESTAMP" />
+		<result column="refund_complete_time" property="refundCompleteTime"
+			jdbcType="TIMESTAMP" />
+		<result column="request_apply_from" property="requestApplyFrom"
+			jdbcType="VARCHAR" />
+		<result column="request_apply_mer_user_id" property="requestApplyMerUserId"
+			jdbcType="INTEGER" />
+		<result column="request_apply_user_id" property="requestApplyUserId"
+			jdbcType="INTEGER" />
+		<result column="refund_reason" property="refundReason"
+			jdbcType="VARCHAR" />
+		<result column="refund_desc" property="refundDesc" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="OrderRefundRecordColumn">
+		refund_id, ord_id, out_trade_no, out_refund_no, refund_no,
+		transaction_id,
+		device_info,
+		refund_amount, refund_status, refund_way,
+		refund_request_time, refund_success_time,
+		refund_complete_time,
+		request_apply_from, request_apply_mer_user_id,
+		request_apply_user_id,
+		refund_reason, refund_desc
+	</sql>
+
+	<insert id="insert" parameterType="org.huasi.car.order.entity.OrderRefundRecord">
+		insert into order_refund_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="refundId != null">
+				refund_id,
+			</if>
+			<if test="orderId != null">
+				ord_id,
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no,
+			</if>
+			<if test="outRefundNo != null">
+				out_refund_no,
+			</if>
+			<if test="refundNo != null">
+				refund_no,
+			</if>
+			<if test="transactionId != null">
+				transaction_id,
+			</if>
+			<if test="deviceInfo != null">
+				device_info,
+			</if>
+			<if test="refundAmount != null">
+				refund_amount,
+			</if>
+			<if test="refundStatus != null">
+				refund_status,
+			</if>
+			<if test="refundWay != null">
+				refund_way,
+			</if>
+			<if test="refundRequestTime != null">
+				refund_request_time,
+			</if>
+			<if test="refundSuccessTime != null">
+				refund_success_time,
+			</if>
+			<if test="refundCompleteTime != null">
+				refund_complete_time,
+			</if>
+			<if test="requestApplyFrom != null">
+				request_apply_from,
+			</if>
+			<if test="requestApplyMerUserId != null">
+				request_apply_mer_user_id,
+			</if>
+			<if test="requestApplyUserId != null">
+				request_apply_user_id,
+			</if>
+			<if test="refundReason != null">
+				refund_reason,
+			</if>
+			<if test="refundDesc != null">
+				refund_desc,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="refundId != null">
+				#{refundId,jdbcType=INTEGER},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="outTradeNo != null">
+				#{outTradeNo,jdbcType=VARCHAR},
+			</if>
+			<if test="outRefundNo != null">
+				#{outRefundNo,jdbcType=VARCHAR},
+			</if>
+			<if test="refundNo != null">
+				#{refundNo,jdbcType=VARCHAR},
+			</if>
+			<if test="transactionId != null">
+				#{transactionId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceInfo != null">
+				#{deviceInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="refundAmount != null">
+				#{refundAmount,jdbcType=INTEGER},
+			</if>
+			<if test="refundStatus != null">
+				#{refundStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="refundWay != null">
+				#{refundWay,jdbcType=VARCHAR},
+			</if>
+			<if test="refundRequestTime != null">
+				#{refundRequestTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundSuccessTime != null">
+				#{refundSuccessTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundCompleteTime != null">
+				#{refundCompleteTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="requestApplyFrom != null">
+				#{requestApplyFrom,jdbcType=VARCHAR},
+			</if>
+			<if test="requestApplyMerUserId != null">
+				#{requestApplyMerUserId,jdbcType=INTEGER},
+			</if>
+			<if test="requestApplyUserId != null">
+				#{requestApplyUserId,jdbcType=INTEGER},
+			</if>
+			<if test="refundReason != null">
+				#{refundReason,jdbcType=VARCHAR},
+			</if>
+			<if test="refundDesc != null">
+				#{refundDesc,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="org.huasi.car.order.entity.OrderRefundRecord">
+		update order_refund_record
+		<set>
+			<if test="orderId != null">
+				ord_id = #{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+			</if>
+			<if test="outRefundNo != null">
+				out_refund_no = #{outRefundNo,jdbcType=VARCHAR},
+			</if>
+			<if test="refundNo != null">
+				refund_no = #{refundNo,jdbcType=VARCHAR},
+			</if>
+			<if test="transactionId != null">
+				transaction_id = #{transactionId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceInfo != null">
+				device_info = #{deviceInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="refundAmount != null">
+				refund_amount = #{refundAmount,jdbcType=INTEGER},
+			</if>
+			<if test="refundStatus != null">
+				refund_status = #{refundStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="refundWay != null">
+				refund_way = #{refundWay,jdbcType=VARCHAR},
+			</if>
+			<if test="refundRequestTime != null">
+				refund_request_time =
+				#{refundRequestTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundSuccessTime != null">
+				refund_success_time =
+				#{refundSuccessTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundCompleteTime != null">
+				refund_complete_time =
+				#{refundCompleteTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="requestApplyFrom != null">
+				request_apply_from =
+				#{requestApplyFrom,jdbcType=VARCHAR},
+			</if>
+			<if test="requestApplyMerUserId != null">
+				request_apply_mer_user_id =
+				#{requestApplyMerUserId,jdbcType=INTEGER},
+			</if>
+			<if test="requestApplyUserId != null">
+				request_apply_user_id =
+				#{requestApplyUserId,jdbcType=INTEGER},
+			</if>
+			<if test="refundReason != null">
+				refund_reason = #{refundReason,jdbcType=VARCHAR},
+			</if>
+			<if test="refundDesc != null">
+				refund_desc = #{refundDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where refund_id = #{refundId,jdbcType=INTEGER}
+	</update>
+</mapper>

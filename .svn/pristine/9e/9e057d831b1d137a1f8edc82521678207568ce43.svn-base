@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.order.dao.impl.OrdDetailDaoImpl">
+	<resultMap id="OrdDetailResultMap" type="org.huasi.car.order.entity.OrderDetail">
+		<id column="dtl_id" property="ordDetailId" />
+		<result column="ord_id" property="ordId" />
+		<result column="out_trade_no" property="outTradeNo" />
+		<result column="user_id" property="userId" />
+
+		<result column="srv_name" property="srvName" />
+		<result column="srv_id" property="srvId" />
+		<result column="mer_id" property="merId" />
+
+		<result column="dtl_price" property="ordDetailPrice" />
+		<result column="dtl_count" property="ordDetailCount" />
+		<result column="dtl_total_price" property="ordDetailTotalPrice" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+	<sql id="OrdDetailColumn">
+		dtl_id,ord_id,out_trade_no,user_id,srv_name,srv_id,mer_id,dtl_price,dtl_count,dtl_total_price,create_time
+	</sql>
+
+	<!-- 添加订单详情 -->
+	<insert id="insert" parameterType="org.huasi.car.order.entity.OrderDetail"
+		useGeneratedKeys="true" keyProperty="ordDetailId">
+		insert into mer_ord_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ordDetailId != null">
+				dtl_id,
+			</if>
+			<if test="ordId != null">
+				ord_id,
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="srvName != null">
+				srv_name,
+			</if>
+			<if test="srvId != null">
+				srv_id,
+			</if>
+			<if test="merId != null">
+				mer_id,
+			</if>
+			<if test="ordDetailPrice != null">
+				dtl_price,
+			</if>
+			<if test="ordDetailCount != null">
+				dtl_count,
+			</if>
+			<if test="ordDetailTotalPrice != null">
+				dtl_total_price,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orddetailId != null">
+				#{ordDetailId},
+			</if>
+			<if test="ordId != null">
+				#{ordId},
+			</if>
+			<if test="outTradeNo != null">
+				#{outTradeNo},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="srvName != null">
+				#{srvName},
+			</if>
+			<if test="srvId != null">
+				#{srvId},
+			</if>
+			<if test="merId != null">
+				#{merId},
+			</if>
+			<if test="ordDetailPrice != null">
+				#{ordDetailPrice},
+			</if>
+			<if test="ordDetailCount != null">
+				#{ordDetailCount},
+			</if>
+			<if test="ordDetailTotalPrice != null">
+				#{ordDetailTotalPrice},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量添加 -->
+	<insert id="batchInsert" parameterType="org.huasi.car.order.entity.OrderDetail"
+		useGeneratedKeys="true" keyProperty="ordDetailId">
+		insert into mer_ord_detail
+		(ord_id,out_trade_no,user_id,srv_name,srv_id,mer_id,dtl_price,dtl_count,dtl_total_price,create_time)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.ordId},
+			(#{item.outTradeNo},
+			#{item.userId},
+			#{item.srvName},
+			#{item.srvId},
+			#{item.merId},
+			#{item.ordDetailPrice},
+			#{item.ordDetailCount},
+			#{item.ordDetailTotalPrice},
+			#{item.createTime}
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新订单详情 -->
+	<update id="updateByPrimaryKey" parameterType="org.huasi.car.order.entity.OrderDetail">
+		update mer_ord_detail
+		<set>
+			<if test="ord_id != null">
+				ord_id = #{ordId},
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no=#{outTradeNo},
+			</if>
+			<if test="user_id != null">
+				user_id = #{userId},
+			</if>
+			<if test="srvName != null">
+				srv_name=#{srvName},
+			</if>
+			<if test="srv_id != null">
+				srv_id = #{srvId},
+			</if>
+			<if test="dtl_price != null">
+				dtl_price = #{ordDetailPrice},
+			</if>
+			<if test="dtl_count != null">
+				dtl_count = #{ordDetailTotalPrice},
+			</if>
+			<if test="dtl_total_price != null">
+				dtl_total_price = #{merId},
+			</if>
+			<if test="create_time != null">
+				create_time =#{createTime},
+			</if>
+		</set>
+		where dtl_id = #{ordDetailId}
+	</update>
+</mapper>

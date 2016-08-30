@@ -1,0 +1,11 @@
+package org.huasi.car.info.dao.impl;
+
+import org.huasi.car.common.core.dao.impl.BaseDaoImpl;
+import org.huasi.car.info.dao.ActiveDao;
+import org.huasi.car.info.entity.Active;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class ActiveDaoImpl extends BaseDaoImpl<Active> implements ActiveDao {
+
+}

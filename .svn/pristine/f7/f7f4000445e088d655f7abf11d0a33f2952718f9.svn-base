@@ -1,0 +1,24 @@
+package org.huasi.car.comment.service;
+
+import org.huasi.car.comment.entity.MerOrdCommLike;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional(propagation=Propagation.SUPPORTS,isolation=Isolation.DEFAULT,readOnly=true)
+public interface MerOrdCommLikeService {
+
+	/**
+	 * 对商铺服务订单的评论进行点赞
+	 * @param merOrdCommLike
+	 * @return
+	 */
+	public MerOrdCommLike addMerOrdCommLike(MerOrdCommLike merOrdCommLike);
+	
+	/**
+	 * 对商铺服务订单的评论取消点赞
+	 * @param commLikeId
+	 * @return
+	 */
+	public boolean deleteMerOrdCommLike(String commlikeId);
+}

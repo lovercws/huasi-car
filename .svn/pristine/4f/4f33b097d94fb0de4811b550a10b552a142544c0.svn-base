@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.system.dao.impl.SysAreaDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" readOnly="true" />
+	
+	<resultMap id="SysAreaResultMap" type="org.huasi.car.system.entity.SysArea">
+		<id column="a_id" property="aId" jdbcType="INTEGER" />
+		<result column="a_code" property="aCode" jdbcType="VARCHAR" />
+		<result column="c_code" property="cCode" jdbcType="VARCHAR" />
+		<result column="a_name" property="aName" jdbcType="VARCHAR" />
+		<result column="a_sname" property="aSname" jdbcType="VARCHAR" />
+		<result column="a_pinying" property="aPinying" jdbcType="VARCHAR" />
+		<result column="a_py" property="aPy" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="SysAreaColumn">
+		a_id, a_code, c_code, a_name, a_sname, a_pinying, a_py
+	</sql>
+
+	<!-- 根据c_code获取城市所属的所有区 -->
+	<select id="listByColumn" resultMap="SysAreaResultMap"
+		parameterType="map">
+		select
+		<include refid="SysAreaColumn" />
+		from sys_area
+		where c_code = #{cCode}
+	</select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mer_recom_serv">
+	<resultMap id="BaseResultMap" type="com.huasi.car.merchant.bean.MerRecomServ">
+		<id column="rs_id" property="recomservId" jdbcType="INTEGER" />
+		<result column="srv_id" property="srvId" jdbcType="INTEGER" />
+		<result column="rs_order" property="recomservOrder" jdbcType="INTEGER" />
+		<result column="rs_create_time" property="recomservCreateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		rs_id, srv_id, rs_order, rs_create_time
+	</sql>
+</mapper>

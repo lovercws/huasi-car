@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.merchant.dao.impl.MerOrdRuleDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" readOnly="true" />
+
+	<resultMap id="MerOrdRuleResultMap" type="org.huasi.car.merchant.entity.MerOrdRule">
+		<id column="ru_id" property="ordruleId" jdbcType="INTEGER" />
+		<result column="ru_name" property="ordruleName" jdbcType="VARCHAR" />
+		<result column="ru_create_time" property="ordruleCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ru_status" property="ordruleStatus" jdbcType="INTEGER" />
+		<result column="ru_order" property="ordruleOrder" jdbcType="SMALLINT" />
+	</resultMap>
+	<sql id="MerOrdRuleColumn">
+		ru_id, ru_name, ru_create_time, ru_status, ru_order
+	</sql>
+
+	<!-- 获取所有的智能排序规则 -->
+	<select id="listByColumn" resultMap="MerOrdRuleResultMap"
+		parameterType="map">
+		select
+		<include refid="MerOrdRuleColumn" />
+		from mer_ord_rule
+		<where>
+			<if test="ordruleStatus!=null">
+				ru_status=#{ordruleStatus} order by ru_order desc
+			</if>
+		</where>
+	</select>
+</mapper>

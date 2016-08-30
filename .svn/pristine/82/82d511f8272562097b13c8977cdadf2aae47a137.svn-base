@@ -1,0 +1,21 @@
+package org.huasi.car.controller.info;
+
+import org.huasi.car.common.core.response.ResponseEntity;
+import org.springframework.stereotype.Controller;
+
+/**
+ * @desc 资讯分类控制器
+ * @author ganliang
+ * @version 2016年8月19日 上午9:30:34
+ */
+@Controller("/info/classify")
+public class InfoClassifyController {
+
+	/**
+	 * 获取所有的资讯分类
+	 * @return
+	 */
+	public ResponseEntity getAllInfoClassify() {
+		return null;
+	}
+}

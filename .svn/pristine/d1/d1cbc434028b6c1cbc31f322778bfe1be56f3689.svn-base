@@ -1,0 +1,28 @@
+package org.huasi.car.comment.service.impl;
+
+import java.util.Date;
+
+import org.huasi.car.comment.dao.MerOrdCommLikeDao;
+import org.huasi.car.comment.entity.MerOrdCommLike;
+import org.huasi.car.comment.service.MerOrdCommLikeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MerOrdCommLikeServiceImpl implements MerOrdCommLikeService {
+
+	@Autowired
+	private MerOrdCommLikeDao merOrdCommLikeDao;
+
+	@Override
+	public MerOrdCommLike addMerOrdCommLike(MerOrdCommLike merOrdCommLike) {
+		merOrdCommLike.setCommlikeCreateTime(new Date());
+		return merOrdCommLikeDao.insert(merOrdCommLike);
+	}
+
+	@Override
+	public boolean deleteMerOrdCommLike(String commlikeId) {
+		return merOrdCommLikeDao.delete(commlikeId) > 0;
+	}
+
+}

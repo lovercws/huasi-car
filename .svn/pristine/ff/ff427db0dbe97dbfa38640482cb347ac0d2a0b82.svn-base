@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mer_user">
+	<resultMap id="BaseResultMap" type="com.huasi.car.user.bean.MerUser">
+		<id column="mer_user_id" property="merUserId" jdbcType="INTEGER" />
+		<result column="mer_user_name" property="merUserName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		mer_user_id, mer_user_name
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from mer_user
+		where mer_user_id = #{merUserId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from mer_user
+		where mer_user_id = #{merUserId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.huasi.car.user.bean.MerUser">
+		insert into mer_user (mer_user_id, mer_user_name)
+		values (#{merUserId,jdbcType=INTEGER}, #{merUserName,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.huasi.car.user.bean.MerUser">
+		insert into mer_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="merUserId != null">
+				mer_user_id,
+			</if>
+			<if test="merUserName != null">
+				mer_user_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="merUserId != null">
+				#{merUserId,jdbcType=INTEGER},
+			</if>
+			<if test="merUserName != null">
+				#{merUserName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.huasi.car.user.bean.MerUser">
+		update mer_user
+		<set>
+			<if test="merUserName != null">
+				mer_user_name = #{merUserName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where mer_user_id = #{merUserId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.huasi.car.user.bean.MerUser">
+		update mer_user
+		set mer_user_name = #{merUserName,jdbcType=VARCHAR}
+		where mer_user_id = #{merUserId,jdbcType=INTEGER}
+	</update>
+</mapper>

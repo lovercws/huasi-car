@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mer_ord_comm_img" >
+  <resultMap id="BaseResultMap" type="com.huasi.car.comment.bean.MerOrdCommImg" >
+    <id column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="comm_id" property="commId" jdbcType="INTEGER" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="img_create_time" property="imgCreateTime" jdbcType="TIMESTAMP" />
+    <result column="img_type" property="imgType" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    img_id, comm_id, img_url, img_create_time, img_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mer_ord_comm_img
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mer_ord_comm_img
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huasi.car.comment.bean.MerOrdCommImg" >
+    insert into mer_ord_comm_img (img_id, comm_id, img_url, 
+      img_create_time, img_type)
+    values (#{imgId,jdbcType=INTEGER}, #{commId,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{imgCreateTime,jdbcType=TIMESTAMP}, #{imgType,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huasi.car.comment.bean.MerOrdCommImg" >
+    insert into mer_ord_comm_img
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="commId != null" >
+        comm_id,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="imgCreateTime != null" >
+        img_create_time,
+      </if>
+      <if test="imgType != null" >
+        img_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="commId != null" >
+        #{commId,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgCreateTime != null" >
+        #{imgCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgType != null" >
+        #{imgType,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huasi.car.comment.bean.MerOrdCommImg" >
+    update mer_ord_comm_img
+    <set >
+      <if test="commId != null" >
+        comm_id = #{commId,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgCreateTime != null" >
+        img_create_time = #{imgCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgType != null" >
+        img_type = #{imgType,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huasi.car.comment.bean.MerOrdCommImg" >
+    update mer_ord_comm_img
+    set comm_id = #{commId,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      img_create_time = #{imgCreateTime,jdbcType=TIMESTAMP},
+      img_type = #{imgType,jdbcType=SMALLINT}
+    where img_id = #{imgId,jdbcType=INTEGER}
+  </update>
+</mapper>

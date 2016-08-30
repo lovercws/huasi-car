@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mer_ord_detail" >
+  <resultMap id="BaseResultMap" type="com.huasi.car.order.bean.MerOrdDetail" >
+    <id column="dtl_id" property="orddetailId" jdbcType="INTEGER" />
+    <result column="ord_code" property="ordCode" jdbcType="INTEGER" />
+    <result column="dtl_price" property="orddetailPrice" jdbcType="REAL" />
+    <result column="dtl_count" property="orddetailCount" jdbcType="INTEGER" />
+    <result column="dtl_total_price" property="orddetailTotalPrice" jdbcType="REAL" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="srv_id" property="srvId" jdbcType="INTEGER" />
+    <result column="mer_id" property="merId" jdbcType="INTEGER" />
+    <result column="dtl_create_time" property="orddetailCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dtl_id, ord_code, dtl_price, dtl_count, dtl_total_price, user_id, srv_id, mer_id, 
+    dtl_create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mer_ord_detail
+    where dtl_id = #{orddetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mer_ord_detail
+    where dtl_id = #{orddetailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huasi.car.order.bean.MerOrdDetail" >
+    insert into mer_ord_detail (dtl_id, ord_code, dtl_price, 
+      dtl_count, dtl_total_price, user_id, 
+      srv_id, mer_id, dtl_create_time
+      )
+    values (#{orddetailId,jdbcType=INTEGER}, #{ordCode,jdbcType=INTEGER}, #{orddetailPrice,jdbcType=REAL}, 
+      #{orddetailCount,jdbcType=INTEGER}, #{orddetailTotalPrice,jdbcType=REAL}, #{userId,jdbcType=INTEGER}, 
+      #{srvId,jdbcType=INTEGER}, #{merId,jdbcType=INTEGER}, #{orddetailCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huasi.car.order.bean.MerOrdDetail" >
+    insert into mer_ord_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orddetailId != null" >
+        dtl_id,
+      </if>
+      <if test="ordCode != null" >
+        ord_code,
+      </if>
+      <if test="orddetailPrice != null" >
+        dtl_price,
+      </if>
+      <if test="orddetailCount != null" >
+        dtl_count,
+      </if>
+      <if test="orddetailTotalPrice != null" >
+        dtl_total_price,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="srvId != null" >
+        srv_id,
+      </if>
+      <if test="merId != null" >
+        mer_id,
+      </if>
+      <if test="orddetailCreateTime != null" >
+        dtl_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orddetailId != null" >
+        #{orddetailId,jdbcType=INTEGER},
+      </if>
+      <if test="ordCode != null" >
+        #{ordCode,jdbcType=INTEGER},
+      </if>
+      <if test="orddetailPrice != null" >
+        #{orddetailPrice,jdbcType=REAL},
+      </if>
+      <if test="orddetailCount != null" >
+        #{orddetailCount,jdbcType=INTEGER},
+      </if>
+      <if test="orddetailTotalPrice != null" >
+        #{orddetailTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="srvId != null" >
+        #{srvId,jdbcType=INTEGER},
+      </if>
+      <if test="merId != null" >
+        #{merId,jdbcType=INTEGER},
+      </if>
+      <if test="orddetailCreateTime != null" >
+        #{orddetailCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huasi.car.order.bean.MerOrdDetail" >
+    update mer_ord_detail
+    <set >
+      <if test="ordCode != null" >
+        ord_code = #{ordCode,jdbcType=INTEGER},
+      </if>
+      <if test="orddetailPrice != null" >
+        dtl_price = #{orddetailPrice,jdbcType=REAL},
+      </if>
+      <if test="orddetailCount != null" >
+        dtl_count = #{orddetailCount,jdbcType=INTEGER},
+      </if>
+      <if test="orddetailTotalPrice != null" >
+        dtl_total_price = #{orddetailTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="srvId != null" >
+        srv_id = #{srvId,jdbcType=INTEGER},
+      </if>
+      <if test="merId != null" >
+        mer_id = #{merId,jdbcType=INTEGER},
+      </if>
+      <if test="orddetailCreateTime != null" >
+        dtl_create_time = #{orddetailCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where dtl_id = #{orddetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huasi.car.order.bean.MerOrdDetail" >
+    update mer_ord_detail
+    set ord_code = #{ordCode,jdbcType=INTEGER},
+      dtl_price = #{orddetailPrice,jdbcType=REAL},
+      dtl_count = #{orddetailCount,jdbcType=INTEGER},
+      dtl_total_price = #{orddetailTotalPrice,jdbcType=REAL},
+      user_id = #{userId,jdbcType=INTEGER},
+      srv_id = #{srvId,jdbcType=INTEGER},
+      mer_id = #{merId,jdbcType=INTEGER},
+      dtl_create_time = #{orddetailCreateTime,jdbcType=TIMESTAMP}
+    where dtl_id = #{orddetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.merchant.dao.impl.MerClassifyDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"
+		flushInterval="300" readOnly="false" />
+
+	<resultMap id="MerClassifyResultMap" type="org.huasi.car.merchant.entity.MerClassify">
+		<id column="cl_id" property="classifyId" jdbcType="INTEGER" />
+		<result column="cl_code" property="classifyCode" jdbcType="VARCHAR" />
+		<result column="cl_name" property="classifyName" jdbcType="VARCHAR" />
+		<result column="cl_img" property="classifyImage" jdbcType="VARCHAR" />
+		<result column="prt_cl_id" property="prtClassifyId" jdbcType="INTEGER" />
+		<result column="cl_mer_count" property="classifyMerCount"
+			jdbcType="INTEGER" />
+		<result column="cl_create_time" property="classifyCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="cl_status" property="classifyStatus" jdbcType="SMALLINT" />
+		<result column="cl_order" property="classifyOrder" jdbcType="SMALLINT" />
+	</resultMap>
+	<sql id="MerClassifyColumn">
+		cl_id, cl_code, cl_name,cl_img, prt_cl_id, cl_mer_count,
+		cl_create_time, cl_status,cl_order
+	</sql>
+
+	<!-- 查询所有的分类 -->
+	<select id="listBy" resultMap="MerClassifyResultMap"
+		parameterType="map">
+		select
+		<include refid="MerClassifyColumn" />
+		from mer_classify
+		<where>
+			<if test="level==1">
+				and (prt_cl_id=0 or prt_cl_id is null)
+			</if>
+			<if test="level==2">
+				and (prt_cl_id!=0 and prt_cl_id is not null)
+			</if>
+			<if test="classifyStatus!=null">
+				and cl_status=#{classifyStatus}
+			</if>
+			<if test="classifyId!=0 and classifyId!=null">
+				and cl_id=#{classifyId}
+			</if>
+			<if test="prtClassifyId!=0 and prtClassifyId!=null">
+				and prt_cl_id=#{prtClassifyId}
+			</if>
+		</where>
+		order by cl_order desc
+	</select>
+
+	<!-- 获取商铺所属的分类列表 -->
+	<select id="getMerClassifyByMerId" resultMap="MerClassifyResultMap">
+		select
+		<include refid="MerClassifyColumn" />
+		from mer_classify where cl_id in(select cl_id from mer_cl_mer where
+		mer_id=#{merId})
+	</select>
+</mapper>

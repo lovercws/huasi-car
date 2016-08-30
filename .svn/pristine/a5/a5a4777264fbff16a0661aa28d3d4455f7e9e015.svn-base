@@ -1,0 +1,89 @@
+package org.huasi.car.order.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @desc 商铺订单 
+ * @author ganliang
+ * @version 2016年8月10日 下午3:59:25
+ */
+public class MerOrder implements Serializable{
+
+	private static final long serialVersionUID = 8833758780680357541L;
+
+	private Integer ordId;// 订单id
+    private String ordCode;// 订单编号（订单流水号）
+    private Integer srvId;// 服务id
+
+    private Integer userId;// 购买服务的用户id
+    private Float ordTotalPrice;// 订单的总价格
+    private Boolean ordStatus;// 订单状态(0 未付款；1 取消订单；2付款成功；3 付款失败；4评价)
+
+    private Boolean ordPayType;// 支付方式(0 支付宝；1 微信；2 其他)
+    private Date ordCreateTime;// 订单生成时间
+
+    public Integer getOrdId() {
+        return ordId;
+    }
+
+    public void setOrdId(Integer ordId) {
+        this.ordId = ordId;
+    }
+
+    public String getOrdCode() {
+        return ordCode;
+    }
+
+    public void setOrdCode(String ordCode) {
+        this.ordCode = ordCode == null ? null : ordCode.trim();
+    }
+
+    public Integer getSrvId() {
+        return srvId;
+    }
+
+    public void setSrvId(Integer srvId) {
+        this.srvId = srvId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Float getOrdTotalPrice() {
+        return ordTotalPrice;
+    }
+
+    public void setOrdTotalPrice(Float ordTotalPrice) {
+        this.ordTotalPrice = ordTotalPrice;
+    }
+
+    public Boolean getOrdStatus() {
+        return ordStatus;
+    }
+
+    public void setOrdStatus(Boolean ordStatus) {
+        this.ordStatus = ordStatus;
+    }
+
+    public Boolean getOrdPayType() {
+        return ordPayType;
+    }
+
+    public void setOrdPayType(Boolean ordPayType) {
+        this.ordPayType = ordPayType;
+    }
+
+    public Date getOrdCreateTime() {
+        return ordCreateTime;
+    }
+
+    public void setOrdCreateTime(Date ordCreateTime) {
+        this.ordCreateTime = ordCreateTime;
+    }
+}

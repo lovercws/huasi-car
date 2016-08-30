@@ -1,0 +1,98 @@
+package org.huasi.car.order.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @desc 订单详情实体对象 
+ * @author ganliang
+ * @version 2016年8月10日 下午3:59:03
+ */
+public class MerOrdDetail implements Serializable{
+
+	private static final long serialVersionUID = -908108366829673899L;
+
+	private Integer orddetailId;// 订单详细id
+    private Integer ordCode;// 订单内码
+    private Float orddetailPrice;// 服务的价格
+
+    private Integer orddetailCount;// 单件的数量（最多100件）
+    private Float orddetailTotalPrice;// 该订单详情的总价格
+    private Integer userId;// 购买服务的用户id
+
+    private Integer srvId;// 服务id
+    private Integer merId;// 商铺id
+    private Date orddetailCreateTime;// 订单生成时间
+
+    public Integer getOrddetailId() {
+        return orddetailId;
+    }
+
+    public void setOrddetailId(Integer orddetailId) {
+        this.orddetailId = orddetailId;
+    }
+
+    public Integer getOrdCode() {
+        return ordCode;
+    }
+
+    public void setOrdCode(Integer ordCode) {
+        this.ordCode = ordCode;
+    }
+
+    public Float getOrddetailPrice() {
+        return orddetailPrice;
+    }
+
+    public void setOrddetailPrice(Float orddetailPrice) {
+        this.orddetailPrice = orddetailPrice;
+    }
+
+    public Integer getOrddetailCount() {
+        return orddetailCount;
+    }
+
+    public void setOrddetailCount(Integer orddetailCount) {
+        this.orddetailCount = orddetailCount;
+    }
+
+    public Float getOrddetailTotalPrice() {
+        return orddetailTotalPrice;
+    }
+
+    public void setOrddetailTotalPrice(Float orddetailTotalPrice) {
+        this.orddetailTotalPrice = orddetailTotalPrice;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getSrvId() {
+        return srvId;
+    }
+
+    public void setSrvId(Integer srvId) {
+        this.srvId = srvId;
+    }
+
+    public Integer getMerId() {
+        return merId;
+    }
+
+    public void setMerId(Integer merId) {
+        this.merId = merId;
+    }
+
+    public Date getOrddetailCreateTime() {
+        return orddetailCreateTime;
+    }
+
+    public void setOrddetailCreateTime(Date orddetailCreateTime) {
+        this.orddetailCreateTime = orddetailCreateTime;
+    }
+}

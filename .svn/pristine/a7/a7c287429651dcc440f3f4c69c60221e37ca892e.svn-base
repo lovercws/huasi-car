@@ -1,0 +1,110 @@
+package org.huasi.car.controller.merchant;
+
+import java.util.List;
+
+import org.huasi.car.comment.entity.MerOrdComment;
+import org.huasi.car.comment.service.MerOrdCommentService;
+import org.huasi.car.common.core.controller.BaseController;
+import org.huasi.car.common.core.response.HttpCode;
+import org.huasi.car.common.core.response.ResponseEntity;
+import org.huasi.car.common.core.utils.ValidateUtils;
+import org.huasi.car.merchant.entity.MerClassify;
+import org.huasi.car.merchant.entity.MerService;
+import org.huasi.car.merchant.entity.Merchant;
+import org.huasi.car.merchant.service.MerClassifyService;
+import org.huasi.car.merchant.service.MerchantService;
+import org.huasi.car.merchant.service.MerchantSrvService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * @desc 商户详情控制器
+ * @author ganliang
+ * @version 2016年8月15日 上午9:53:56
+ */
+@Controller
+@RequestMapping("/mer/merchant")
+public class MerchantInfoController extends BaseController {
+
+	@Autowired
+	private MerchantService merchantService;
+
+	@Autowired
+	private MerClassifyService classifyService;
+
+	@Autowired
+	private MerchantSrvService merchantSrvService;
+
+	@Autowired
+	private MerOrdCommentService commentService;
+
+	/**
+	 * 获取商铺详情
+	 * @param merId商铺id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = { "/{merId}" }, method = RequestMethod.GET)
+	public ResponseEntity info(@PathVariable String merId) {
+		// 验证merId是否 是数字
+		if (!ValidateUtils.isNumeric(merId)) {
+			return new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, merId);
+		}
+		Merchant merchant = merchantService.getMerchantById(Integer.parseInt(merId));
+		return new ResponseEntity(merchant);
+	}
+
+	/**
+	 * 获取商铺分类
+	 * @param merId 商铺id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = { "/{merId}/classify" }, method = RequestMethod.GET)
+	public ResponseEntity getMerClassifyByMerId(@PathVariable String merId) {
+		// 验证merId是否 是数字
+		if (!ValidateUtils.isNumeric(merId)) {
+			return new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, merId);
+		}
+		List<MerClassify> classifys = classifyService.getMerClassifyByMerId(Integer.parseInt(merId));
+		return new ResponseEntity(classifys);
+	}
+
+	/**
+	 * 获取商铺下的服务
+	 * @param merId商铺id
+	 */
+	@ResponseBody
+	@RequestMapping(value = { "/{merId}/service" }, method = RequestMethod.GET)
+	public ResponseEntity getMerchantServiceByMerId(@PathVariable String merId) {
+		// 验证merId是否 是数字
+		if (!ValidateUtils.isNumeric(merId)) {
+			return new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, merId);
+		}
+		List<MerService> merServices = merchantSrvService.getMerchantSrvByMerId(Integer.parseInt(merId));
+		return new ResponseEntity(merServices);
+	}
+
+	/**
+	 * 获取商铺 的所有评论
+	 * 
+	 * @param merId
+	 *            商铺id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = { "/{merId}/comment" }, method = RequestMethod.GET)
+	public ResponseEntity getMerOrdCommentByMerId(@PathVariable String merId) {
+		// 验证merId是否 是数字
+		if (!ValidateUtils.isNumeric(merId)) {
+			return new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, merId);
+		}
+		List<MerOrdComment> comments = commentService.getMerOrdCommentByMerId(Integer.parseInt(merId));
+		return new ResponseEntity(comments);
+	}
+
+}

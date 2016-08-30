@@ -1,0 +1,123 @@
+package org.huasi.car.controller.order;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.huasi.car.common.core.enums.PayWayEnum;
+import org.huasi.car.common.core.response.HttpCode;
+import org.huasi.car.common.core.response.ResponseEntity;
+import org.huasi.car.common.core.utils.ValidateUtils;
+import org.huasi.car.common.core.utils.WebUtil;
+import org.huasi.car.order.entity.Order;
+import org.huasi.car.order.entity.OrderDetail;
+import org.huasi.car.order.service.OrderService;
+import org.huasi.car.payment.wxpay.exception.WXPayException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+
+/**
+ * @desc 订单控制器
+ * @author ganliang
+ * @version 2016年8月22日 下午2:27:45
+ */
+@Controller
+@RequestMapping("/mer/order")
+public class OrderController {
+
+	@Autowired
+	private OrderService orderService;
+
+	/**
+	 * 用户下单 生成订单
+	 * @param userId 用户id
+	 * @param orderBody [{srvId:123,orddetailCount:1}]
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@RequestMapping(value = { "/create" }, method = RequestMethod.POST)
+	public ResponseEntity order(String userId, String orderBody,HttpServletRequest request) {
+		Gson gson = new Gson();
+		List<Map<String, Double>> orderMap = gson.fromJson(orderBody, List.class);
+		if (!ValidateUtils.isNumeric(userId) || orderMap == null || orderMap.size() == 0) {
+			return new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, null);
+		}
+		// 订单
+		Order order = new Order();
+		// 订单详情
+		List<OrderDetail> ordDetails = new ArrayList<OrderDetail>();
+		for (Map<String, Double> map : orderMap) {
+			OrderDetail ordDetail = new OrderDetail();
+			ordDetail.setSrvId(map.get("srvId").intValue());
+			ordDetail.setOrdDetailCount(map.get("orddetailCount").intValue());
+			ordDetails.add(ordDetail);
+		}
+		order.setUserId(Integer.parseInt(userId));
+		order.setOrderReferenceUrl(WebUtil.getReferenceUrl(request));
+		order = orderService.order(order,ordDetails);
+		return new ResponseEntity(order);
+	}
+
+	/**
+	 * 用户付款(app支付)
+	 * @param payType支付方式 WXPAY、ALIPAY
+	 * @param orderId 订单id
+	 * @param request  HttpServletRequest
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = { "/pay" }, method = RequestMethod.POST)
+	public ResponseEntity payment(String payWay, String orderId, HttpServletRequest request) {
+		// 验证客户端传递的参数
+		if ((!PayWayEnum.ALIPAY.name().equalsIgnoreCase(payWay)&&!PayWayEnum.WXPAY.name().equalsIgnoreCase(payWay))||!ValidateUtils.isNumeric(orderId)) {
+			return new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, payWay);
+		}
+		ResponseEntity responseEntity = null;
+		String orderIp = WebUtil.getRemoteIP(request);
+		String referenceUrl = WebUtil.getReferenceUrl(request);
+		
+		//支付方式    支付宝、微信
+		try {
+			Object responseData=orderService.appPayment(orderId,payWay,orderIp,referenceUrl);
+			responseEntity = new ResponseEntity(responseData);	
+		} catch (WXPayException e) {
+			responseEntity = new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, "微信下单异常");
+		}
+		return responseEntity;
+	}
+	
+	/**
+	 * APP用户取消订单
+	 * @param orderId 订单id
+	 * @param userId 取消用户id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = { "/cancel" }, method = RequestMethod.GET)
+	public ResponseEntity cancel(String orderId,String userId){
+		if(!ValidateUtils.isNumeric(orderId)||!ValidateUtils.isNumeric(userId)){
+			return new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, orderId);
+		}
+		ResponseEntity responseEntity=null;
+		try {
+			boolean success = orderService.cancelOrder(orderId,userId);
+			if(success){
+				responseEntity=new ResponseEntity();
+			}else{
+				responseEntity=new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, orderId);
+			}
+		} catch (WXPayException e) {
+			responseEntity=new ResponseEntity(HttpCode.PARAMETER_SETTING_ERROR, orderId);
+		}
+		return responseEntity;
+	}
+	
+}

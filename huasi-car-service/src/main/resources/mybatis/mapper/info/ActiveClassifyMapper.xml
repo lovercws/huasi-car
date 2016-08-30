@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.info.dao.impl.ActiveClassifyDaoImpl">
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"
+		flushInterval="300" readOnly="false" />
+
+	<resultMap id="ActiveClassifyResultMap" type="org.huasi.car.info.entity.ActiveClassify">
+		<id column="cl_id" property="activeClassifyId" jdbcType="INTEGER" />
+		<result column="cl_name" property="activeClassifyName"
+			jdbcType="VARCHAR" />
+		<result column="cl_desc" property="activeClassifyDesc"
+			jdbcType="VARCHAR" />
+		<result column="cl_img" property="activeClassifyImg" jdbcType="VARCHAR" />
+		<result column="cl_order" property="activeClassifyOrder"
+			jdbcType="SMALLINT" />
+		<result column="cl_status" property="activeClassifyStatus"
+			jdbcType="SMALLINT" />
+		<result column="active_count" property="activeCount" jdbcType="INTEGER" />
+		<result column="create_time" property="activeClassifyCreateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="ActiveClassifyColumn">
+		cl_id, cl_name, cl_desc, cl_img, cl_order,
+		cl_status,active_count,create_time
+	</sql>
+
+	<!-- 获取所有的动态分类 -->
+	<select id="listByColumn" resultMap="ActiveClassifyResultMap"
+		parameterType="map">
+		select
+		<include refid="ActiveClassifyColumn" />
+		from info_classify
+		<where>
+			<if test="activeClassifyStatus != null and activeClassifyStatus != ''">
+				cl_status=#{activeClassifyStatus,jdbcType=SMALLINT}
+			</if>
+		</where>
+	</select>
+
+</mapper>

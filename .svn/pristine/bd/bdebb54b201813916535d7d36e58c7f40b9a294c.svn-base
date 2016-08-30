@@ -1,0 +1,42 @@
+package org.huasi.car.controller.info;
+
+import java.util.List;
+
+import org.huasi.car.common.core.page.PageParam;
+import org.huasi.car.common.core.response.ResponseEntity;
+import org.huasi.car.common.core.utils.ValidateUtils;
+import org.huasi.car.info.entity.Active;
+import org.huasi.car.info.service.ActiveService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+@RequestMapping("/info/active")
+public class InfoController {
+
+	@Autowired
+	private ActiveService activeService;
+
+	/**
+	 * 获取动态的类别下的所有动态
+	 * 
+	 * @param merchant
+	 *            商铺实体信息
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET })
+	public ResponseEntity getActiveByClassifyId(String classifyId, String pageNum) {
+		// 默认为第一页
+		int pagenum = PageParam.DEFAULT_PAGE_NUM;
+		if (pageNum != null && !"".equals(pageNum) && ValidateUtils.isNumeric(pageNum)) {
+			pagenum = Integer.parseInt(pageNum);
+		}
+
+		List<Active> actives = activeService.getAllActive(classifyId, pagenum);
+		return new ResponseEntity(actives);
+	}
+}

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.comment.dao.impl.MerOrdCommentDaoImpl">
+	<resultMap id="MerOrdCommentResultMap" type="org.huasi.car.comment.entity.MerOrdComment">
+		<id column="comm_id" property="commId" jdbcType="INTEGER" />
+		<id column="mer_id" property="merId" jdbcType="INTEGER" />
+		<id column="srv_id" property="srvId" jdbcType="INTEGER" />
+		<result column="ord_id" property="ordId" jdbcType="INTEGER" />
+		<result column="comm_content" property="commContent" jdbcType="VARCHAR" />
+		<result column="comm_create_time" property="commCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="comm_mer_reply" property="commMerReply"
+			jdbcType="VARCHAR" />
+		<result column="comm_type" property="commType" jdbcType="SMALLINT" />
+		<result column="comm_status" property="commStatus" jdbcType="SMALLINT" />
+		<result column="comm_comp_star" property="commCompStar"
+			jdbcType="SMALLINT" />
+		<result column="comm_cap_star" property="commCapStar" jdbcType="SMALLINT" />
+		<result column="comm_serv_star" property="commServStar"
+			jdbcType="SMALLINT" />
+	</resultMap>
+	<sql id="MerOrdCommentColumn">
+		comm_id, mer_id,srv_id,ord_id, comm_content,
+		comm_create_time,
+		comm_mer_reply, comm_type,
+		comm_status,
+		comm_comp_star, comm_cap_star,
+		comm_serv_star
+	</sql>
+
+	<!-- 获取商铺下的所有评论 -->
+	<select id="getMerOrdCommentByMerId" resultMap="MerOrdCommentResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="MerOrdCommentColumn" />
+		from mer_ord_comment
+		where mer_id = #{merId} order by comm_create_time
+		desc
+	</select>
+
+	<!-- 对商铺下面的服务进行评论 -->
+	<insert id="insert" parameterType="merOrdComment"
+		useGeneratedKeys="true" keyProperty="commId">
+		insert into mer_ord_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="commId != null">
+				comm_id,
+			</if>
+			<if test="merId != null">
+				mer_id,
+			</if>
+			<if test="srvId != null">
+				srv_id,
+			</if>
+			<if test="ordId != null">
+				ord_id,
+			</if>
+			<if test="commContent != null">
+				comm_content,
+			</if>
+			<if test="commCreateTime != null">
+				comm_create_time,
+			</if>
+			<if test="commMerReply != null">
+				comm_mer_reply,
+			</if>
+			<if test="commType != null">
+				comm_type,
+			</if>
+			<if test="commStatus != null">
+				comm_status,
+			</if>
+			<if test="commCompStar != null">
+				comm_comp_star,
+			</if>
+			<if test="commCapStar != null">
+				comm_cap_star,
+			</if>
+			<if test="commServStar != null">
+				comm_serv_star,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="commId != null">
+				#{commId,jdbcType=INTEGER},
+			</if>
+			<if test="merId != null">
+				#{merId,jdbcType=INTEGER},
+			</if>
+			<if test="srvId != null">
+				#{srvId,jdbcType=INTEGER},
+			</if>
+			<if test="ordId != null">
+				#{ordId,jdbcType=INTEGER},
+			</if>
+			<if test="commContent != null">
+				#{commContent,jdbcType=VARCHAR},
+			</if>
+			<if test="commCreateTime != null">
+				#{commCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="commMerReply != null">
+				#{commMerReply,jdbcType=VARCHAR},
+			</if>
+			<if test="commType != null">
+				#{commType,jdbcType=SMALLINT},
+			</if>
+			<if test="commStatus != null">
+				#{commStatus,jdbcType=SMALLINT},
+			</if>
+			<if test="commCompStar != null">
+				#{commCompStar,jdbcType=SMALLINT},
+			</if>
+			<if test="commCapStar != null">
+				#{commCapStar,jdbcType=SMALLINT},
+			</if>
+			<if test="commServStar != null">
+				#{commServStar,jdbcType=SMALLINT},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 对商铺的服务下面的某个评论进行回复 -->
+	<update id="batchUpdateByColumn" parameterType="map">
+		update mer_ord_comment
+		<set>
+			<if test="merId != null">
+				mer_id = #{merId,jdbcType=INTEGER},
+			</if>
+			<if test="srvId != null">
+				srv_id = #{srvId,jdbcType=INTEGER},
+			</if>
+			<if test="ordId != null">
+				ord_id = #{ordId,jdbcType=INTEGER},
+			</if>
+			<if test="commContent != null">
+				comm_content = #{commContent,jdbcType=VARCHAR},
+			</if>
+			<if test="commCreateTime != null">
+				comm_create_time = #{commCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="commMerReply != null">
+				comm_mer_reply = #{commMerReply,jdbcType=VARCHAR},
+			</if>
+			<if test="commType != null">
+				comm_type = #{commType,jdbcType=SMALLINT},
+			</if>
+			<if test="commStatus != null">
+				comm_status = #{commStatus,jdbcType=SMALLINT},
+			</if>
+			<if test="commCompStar != null">
+				comm_comp_star = #{commCompStar,jdbcType=SMALLINT},
+			</if>
+			<if test="commCapStar != null">
+				comm_cap_star = #{commCapStar,jdbcType=SMALLINT},
+			</if>
+			<if test="commServStar != null">
+				comm_serv_star = #{commServStar,jdbcType=SMALLINT},
+			</if>
+		</set>
+		where comm_id = #{commId,jdbcType=INTEGER}
+	</update>
+</mapper>

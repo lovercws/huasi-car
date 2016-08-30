@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.system.dao.impl.SysImageCarouselDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" readOnly="true" />
+	
+	<resultMap id="SysImageCarouselResultMap" type="org.huasi.car.system.entity.SysImageCarousel">
+		<id column="carousel_id" property="carouselId" jdbcType="INTEGER" />
+		<result column="carousel_name" property="carouselName" jdbcType="VARCHAR" />
+		<result column="carousel_url" property="carouselUrl" jdbcType="VARCHAR" />
+		<result column="carousel_desc" property="carouselDesc" jdbcType="VARCHAR" />
+		<result column="carousel_status" property="carouselStatus" jdbcType="INTEGER" />
+		<result column="carousel_order" property="carouselOrder" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="SysImageCarouselColumn">
+		carousel_id, carousel_name, carousel_url, carousel_desc, carousel_status, carousel_order
+	</sql>
+
+	<!-- 根据c_code获取城市所属的所有区 -->
+	<select id="listByColumn" resultMap="SysImageCarouselResultMap"
+		parameterType="map">
+		select
+		<include refid="SysImageCarouselColumn" />
+		from sys_image_carousel where carousel_status = #{carouselStatus}
+	</select>
+</mapper>

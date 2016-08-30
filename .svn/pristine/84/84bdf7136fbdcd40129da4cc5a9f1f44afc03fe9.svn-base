@@ -1,0 +1,37 @@
+package org.huasi.car.controller.info;
+
+import java.util.List;
+
+import org.huasi.car.common.core.response.ResponseEntity;
+import org.huasi.car.info.entity.ActiveClassify;
+import org.huasi.car.info.service.ActiveClassifyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * @desc 资讯分类控制器
+ * @author ganliang
+ * @version 2016年8月19日 上午9:30:34
+ */
+@Controller
+@RequestMapping("/info/classify")
+public class InfoClassifyController {
+
+	@Autowired
+	private ActiveClassifyService activeClassifyService;
+
+	/**
+	 * 获取所有的资讯分类
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity getAllInfoClassify() {
+		List<ActiveClassify> classifys = activeClassifyService.getAllActiveClassify();
+		return new ResponseEntity(classifys);
+	}
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mer_serv_collect" >
+  <resultMap id="BaseResultMap" type="com.huasi.car.merchant.bean.MerServCollect" >
+    <id column="clt_id" property="collectId" jdbcType="INTEGER" />
+    <result column="srv_id" property="srvId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="clt_create_time" property="collectCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    clt_id, srv_id, user_id, clt_create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mer_serv_collect
+    where clt_id = #{collectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mer_serv_collect
+    where clt_id = #{collectId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huasi.car.merchant.bean.MerServCollect" >
+    insert into mer_serv_collect (clt_id, srv_id, user_id, 
+      clt_create_time)
+    values (#{collectId,jdbcType=INTEGER}, #{srvId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{collectCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huasi.car.merchant.bean.MerServCollect" >
+    insert into mer_serv_collect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectId != null" >
+        clt_id,
+      </if>
+      <if test="srvId != null" >
+        srv_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="collectCreateTime != null" >
+        clt_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectId != null" >
+        #{collectId,jdbcType=INTEGER},
+      </if>
+      <if test="srvId != null" >
+        #{srvId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="collectCreateTime != null" >
+        #{collectCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huasi.car.merchant.bean.MerServCollect" >
+    update mer_serv_collect
+    <set >
+      <if test="srvId != null" >
+        srv_id = #{srvId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="collectCreateTime != null" >
+        clt_create_time = #{collectCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where clt_id = #{collectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huasi.car.merchant.bean.MerServCollect" >
+    update mer_serv_collect
+    set srv_id = #{srvId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      clt_create_time = #{collectCreateTime,jdbcType=TIMESTAMP}
+    where clt_id = #{collectId,jdbcType=INTEGER}
+  </update>
+</mapper>

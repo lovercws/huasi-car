@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.huasi.car</groupId>
+		<artifactId>huasi-car</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>huasi-car-business-web</artifactId>
+	<packaging>war</packaging>
+	<name>huasi-car-business-web Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>huasi-car-business-web</finalName>
+	</build>
+	<description>华四车行商户后台系统
+1 商户登录注册
+2 商户申请入店，发布服务
+3 账户管理</description>
+</project>

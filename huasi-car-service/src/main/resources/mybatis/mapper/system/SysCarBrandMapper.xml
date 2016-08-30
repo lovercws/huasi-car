@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.system.dao.impl.SysCarBrandDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" readOnly="true" />
+
+	<resultMap id="SysCarBrandResultMap" type="org.huasi.car.system.entity.SysCarBrand">
+		<id column="b_id" property="brandId" jdbcType="INTEGER" />
+		<result column="b_initial" property="brandInitial" jdbcType="VARCHAR" />
+		<result column="b_name" property="brandName" jdbcType="VARCHAR" />
+		<result column="b_ename" property="brandEname" jdbcType="VARCHAR" />
+		<result column="b_logo" property="brandLogo" jdbcType="VARCHAR" />
+		<result column="b_country" property="brandCountry" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="SysCarBrandColumn">
+		b_id, b_initial, b_name, b_ename, b_logo, b_country
+	</sql>
+
+	<!-- 获取所有的汽车品牌 -->
+	<select id="listByColumn" resultMap="SysCarBrandResultMap"
+		parameterType="map">
+		select
+		<include refid="SysCarBrandColumn" />
+		from sys_car_brand order by b_initial asc
+	</select>
+
+</mapper>

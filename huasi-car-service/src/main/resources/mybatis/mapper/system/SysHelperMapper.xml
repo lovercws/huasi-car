@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.system.dao.impl.SysHelperDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" readOnly="true" />
+
+	<resultMap id="SysHelperResultMap" type="org.huasi.car.system.entity.SysHelper">
+		<id column="h_id" property="helperId" jdbcType="INTEGER" />
+		<result column="h_title" property="helperTitle" jdbcType="VARCHAR" />
+		<result column="h_content" property="helperContent" jdbcType="VARCHAR" />
+		<result column="img_url" property="helperImgUrl" jdbcType="VARCHAR" />
+		<result column="h_order" property="helperOrder" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="SysHelperColumn">
+		h_id, h_title, h_content, img_url, h_order, create_time
+	</sql>
+
+	<!-- 获取所有的意见反馈 -->
+	<select id="listByColumn" resultMap="SysHelperResultMap"
+		parameterType="map">
+		select
+		<include refid="SysHelperColumn" />
+		from sys_helper order by h_order desc
+	</select>
+
+</mapper>

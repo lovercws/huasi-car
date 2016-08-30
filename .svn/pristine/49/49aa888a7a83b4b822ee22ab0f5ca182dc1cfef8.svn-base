@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.log.dao.impl.MerSearchLogDaoImpl">
+	<resultMap id="MerSearchLogResultMap" type="org.huasi.car.log.entity.MerSearchLog">
+		<id column="sl_id" property="logId" jdbcType="INTEGER" />
+		<result column="sl_name" property="logName" jdbcType="VARCHAR" />
+		<result column="use_time" property="usetime" jdbcType="INTEGER" />
+		<result column="sl_content" property="logContent" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="sl_status" property="logStatus" />
+		<result column="ip_address" property="ipAddress" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="search_content" property="searchContent"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 添加搜索商铺日志记录 -->
+	<insert id="insert" parameterType="merSearchLog">
+		insert into
+		mer_search_log(sl_name, use_time, sl_content,
+		create_time,sl_status,ip_address,user_id,search_content)
+		values(#{logName},#{usetime},#{logContent},#{createTime},#{logStatus},#{ipAddress},#{userId},#{searchContent})
+	</insert>
+</mapper>

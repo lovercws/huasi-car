@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.order.dao.impl.OrderPaymentRecordDaoImpl">
+	<resultMap id="OrderPaymentRecordResultMap" type="org.huasi.car.order.entity.OrderPaymentRecord">
+		<id column="pay_id" property="payId" jdbcType="INTEGER" />
+		<result column="ord_id" property="orderId" jdbcType="INTEGER" />
+		<result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+		<result column="out_trade_type" property="outTradeType"
+			jdbcType="VARCHAR" />
+		<result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+		<result column="payer_user_id" property="payerUserId" jdbcType="INTEGER" />
+		<result column="payer_pay_amount" property="payerPayAmount"
+			jdbcType="INTEGER" />
+		<result column="receiver_user_id" property="receiverUserId"
+			jdbcType="INTEGER" />
+		<result column="receiver_pay_amount" property="receiverPayAmount"
+			jdbcType="INTEGER" />
+		<result column="ord_ip" property="orderIp" jdbcType="VARCHAR" />
+		<result column="ord_ref_url" property="orderRefUrl" jdbcType="VARCHAR" />
+		<result column="ord_amount" property="orderAmount" jdbcType="INTEGER" />
+		<result column="ord_pay_type" property="orderPayType" jdbcType="VARCHAR" />
+		<result column="ord_pay_way" property="orderPayWay" jdbcType="VARCHAR" />
+		<result column="pay_desc" property="payDesc" jdbcType="VARCHAR" />
+		<result column="ord_time" property="orderTime" jdbcType="TIMESTAMP" />
+		<result column="pay_success_time" property="paySuccessTime"
+			jdbcType="TIMESTAMP" />
+		<result column="complete_time" property="completeTime"
+			jdbcType="TIMESTAMP" />
+		<result column="body" property="body" jdbcType="VARCHAR" />
+		<result column="attach" property="attach" jdbcType="VARCHAR" />
+		<result column="transaction_id" property="transactionId"
+			jdbcType="VARCHAR" />
+		<result column="prepare_id" property="prepareId" jdbcType="VARCHAR" />
+		<result column="device_info" property="deviceInfo" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="OrderPaymentRecordColumn">
+		pay_id, ord_id, out_trade_no, out_trade_type, pay_status,
+		payer_user_id,
+		payer_pay_amount,
+		receiver_user_id, receiver_pay_amount,
+		ord_ip, ord_ref_url, ord_amount, ord_pay_type,
+		ord_pay_way, pay_desc,
+		ord_time, pay_success_time, complete_time,
+		body, attach,
+		transaction_id,
+		prepare_id, device_info
+	</sql>
+	
+	<select id="listByColumn" parameterType="map" resultMap="OrderPaymentRecordResultMap">
+		select 
+		<include refid="OrderPaymentRecordColumn" />
+		<where>
+			<if test="payId!=null">
+				pay_id=#{payId}
+			</if>
+			<if test="ordId!=null">
+				ord_id=#{ordId}
+			</if>
+			<if test="outTradeNo!=null">
+				out_trade_no=#{outTradeNo}
+			</if>
+			<if test="payStatus!=null">
+				pay_status=#{payStatus}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="org.huasi.car.order.entity.OrderPaymentRecord">
+		insert into order_payment_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="payId != null">
+				pay_id,
+			</if>
+			<if test="orderId != null">
+				ord_id,
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no,
+			</if>
+			<if test="outTradeType != null">
+				out_trade_type,
+			</if>
+			<if test="payStatus != null">
+				pay_status,
+			</if>
+			<if test="payerUserId != null">
+				payer_user_id,
+			</if>
+			<if test="payerPayAmount != null">
+				payer_pay_amount,
+			</if>
+			<if test="receiverUserId != null">
+				receiver_user_id,
+			</if>
+			<if test="receiverPayAmount != null">
+				receiver_pay_amount,
+			</if>
+			<if test="orderIp != null">
+				ord_ip,
+			</if>
+			<if test="orderRefUrl != null">
+				ord_ref_url,
+			</if>
+			<if test="orderAmount != null">
+				ord_amount,
+			</if>
+			<if test="orderPayType != null">
+				ord_pay_type,
+			</if>
+			<if test="orderPayWay != null">
+				ord_pay_way,
+			</if>
+			<if test="payDesc != null">
+				pay_desc,
+			</if>
+			<if test="orderTime != null">
+				ord_time,
+			</if>
+			<if test="paySuccessTime != null">
+				pay_success_time,
+			</if>
+			<if test="completeTime != null">
+				complete_time,
+			</if>
+			<if test="body != null">
+				body,
+			</if>
+			<if test="attach != null">
+				attach,
+			</if>
+			<if test="transactionId != null">
+				transaction_id,
+			</if>
+			<if test="prepareId != null">
+				prepare_id,
+			</if>
+			<if test="deviceInfo != null">
+				device_info,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="payId != null">
+				#{payId},
+			</if>
+			<if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="outTradeNo != null">
+				#{outTradeNo},
+			</if>
+			<if test="outTradeType != null">
+				#{outTradeType},
+			</if>
+			<if test="payStatus != null">
+				#{payStatus},
+			</if>
+			<if test="payerUserId != null">
+				#{payerUserId},
+			</if>
+			<if test="payerPayAmount != null">
+				#{payerPayAmount},
+			</if>
+			<if test="receiverUserId != null">
+				#{receiverUserId},
+			</if>
+			<if test="receiverPayAmount != null">
+				#{receiverPayAmount},
+			</if>
+			<if test="orderIp != null">
+				#{orderIp},
+			</if>
+			<if test="orderRefUrl != null">
+				#{orderRefUrl},
+			</if>
+			<if test="orderAmount != null">
+				#{orderAmount},
+			</if>
+			<if test="orderPayType != null">
+				#{orderPayType},
+			</if>
+			<if test="orderPayWay != null">
+				#{orderPayWay},
+			</if>
+			<if test="payDesc != null">
+				#{payDesc},
+			</if>
+			<if test="orderTime != null">
+				#{orderTime},
+			</if>
+			<if test="paySuccessTime != null">
+				#{paySuccessTime},
+			</if>
+			<if test="completeTime != null">
+				#{completeTime},
+			</if>
+			<if test="body != null">
+				#{body},
+			</if>
+			<if test="attach != null">
+				#{attach},
+			</if>
+			<if test="transactionId != null">
+				#{transactionId},
+			</if>
+			<if test="prepareId != null">
+				#{prepareId},
+			</if>
+			<if test="deviceInfo != null">
+				#{deviceInfo},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByColumn" parameterType="org.huasi.car.order.entity.OrderPaymentRecord">
+		update order_payment_record
+		<set>
+			<if test="outTradeType != null">
+				out_trade_type = #{outTradeType},
+			</if>
+			<if test="payStatus != null">
+				pay_status = #{payStatus},
+			</if>
+			<if test="payerUserId != null">
+				payer_user_id = #{payerUserId},
+			</if>
+			<if test="payerPayAmount != null">
+				payer_pay_amount = #{payerPayAmount},
+			</if>
+			<if test="receiverUserId != null">
+				receiver_user_id = #{receiverUserId},
+			</if>
+			<if test="receiverPayAmount != null">
+				receiver_pay_amount =#{receiverPayAmount},
+			</if>
+			<if test="orderIp != null">
+				ord_ip = #{orderIp},
+			</if>
+			<if test="orderRefUrl != null">
+				ord_ref_url = #{orderRefUrl},
+			</if>
+			<if test="orderAmount != null">
+				ord_amount = #{orderAmount},
+			</if>
+			<if test="orderPayType != null">
+				ord_pay_type = #{orderPayType},
+			</if>
+			<if test="orderPayWay != null">
+				ord_pay_way = #{orderPayWay},
+			</if>
+			<if test="payDesc != null">
+				pay_desc = #{payDesc},
+			</if>
+			<if test="orderTime != null">
+				ord_time = #{orderTime},
+			</if>
+			<if test="paySuccessTime != null">
+				pay_success_time = #{paySuccessTime},
+			</if>
+			<if test="completeTime != null">
+				complete_time = #{completeTime},
+			</if>
+			<if test="body != null">
+				body = #{body},
+			</if>
+			<if test="attach != null">
+				attach = #{attach},
+			</if>
+			<if test="transactionId != null">
+				transaction_id = #{transactionId},
+			</if>
+			<if test="prepareId != null">
+				prepare_id = #{prepareId},
+			</if>
+			<if test="deviceInfo != null">
+				device_info = #{deviceInfo},
+			</if>
+		</set>
+		<where>
+			<if test="payId!=null">
+				pay_id = #{payId}
+			</if>
+			<if test="orderId != null">
+				ord_id = #{orderId},
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no = #{outTradeNo},
+			</if>
+		</where>
+	</update>
+</mapper>

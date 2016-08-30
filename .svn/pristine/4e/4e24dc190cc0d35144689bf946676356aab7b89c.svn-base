@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.info.dao.impl.ActiveLikeDaoImpl">
+
+	<resultMap id="ActiveLikeResultMap" type="org.huasi.car.info.entity.ActiveLike">
+		<id column="like_id" property="activeLikeId" jdbcType="INTEGER" />
+		<result column="active_id" property="activeId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="like_status" property="activeLikeStatus"
+			jdbcType="SMALLINT" />
+		<result column="create_time" property="activeLikeCreateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="ActiveLikeColumn">
+		like_id,active_id,user_id,like_status,create_time
+	</sql>
+
+	<!-- 获知某个动态下某个用户是否已经点赞 -->
+	<select id="listByColumn" resultMap="ActiveLikeResultMap"
+		parameterType="map">
+		select
+		<include refid="ActiveLikeColumn" />
+		from info_like
+		<where>
+			<if test="activeId != null and activeId != ''">
+				and active_id=#{activeId,jdbcType=INTEGER}
+			</if>
+			<if test="userId != null and userId != ''">
+				and user_id=#{userId,jdbcType=INTEGER}
+			</if>
+			<if test="activeLikeStatus != null and activeLikeStatus != ''">
+				and like_status = #{activeLikeStatus,jdbcType=SMALLINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 对某个动态进行点赞 -->
+	<insert id="insert" parameterType="org.huasi.car.info.entity.ActiveLike"
+		useGeneratedKeys="true" keyProperty="activeLikeId">
+		insert into info_like
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="activeLikeId != null">
+				like_id,
+			</if>
+			<if test="activeId != null">
+				active_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="activeLikeStatus != null">
+				like_status,
+			</if>
+			<if test="activeLikeCreateTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="activeLikeId != null">
+				#{activeLikeId,jdbcType=INTEGER},
+			</if>
+			<if test="activeId != null">
+				#{activeId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="activeLikeStatus != null">
+				#{activeLikeStatus,jdbcType=SMALLINT},
+			</if>
+			<if test="activeLikeCreateTime != null">
+				#{activeLikeCreateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 取消点赞，即更改动态为2 -->
+	<update id="batchUpdateByColumn" parameterType="map">
+		update info_like
+		<set>
+			<if test="activeLikeStatus != null">
+				like_status = #{activeLikeStatus,jdbcType=SMALLINT},
+			</if>
+			<if test="activeLikeCreateTime != null">
+				create_time = #{activeLikeCreateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<where>
+			<if test="activeId != null">
+				and active_id = #{activeId,jdbcType=INTEGER}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</update>
+
+</mapper>

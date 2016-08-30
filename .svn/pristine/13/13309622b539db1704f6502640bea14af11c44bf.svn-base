@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.order.dao.impl.OrderDaoImpl">
+	<resultMap id="OrderResultMap" type="org.huasi.car.order.entity.Order">
+		<id column="ord_id" property="orderId" jdbcType="INTEGER" />
+		<result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+		<result column="out_trade_type" property="outTradeType"
+			jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="ord_amount" property="orderAmount" jdbcType="INTEGER" />
+		<result column="ord_from" property="orderFrom" jdbcType="VARCHAR" />
+		<result column="ord_status" property="orderStatus" jdbcType="VARCHAR" />
+		<result column="ord_pay_type" property="orderPayType" jdbcType="VARCHAR" />
+		<result column="ord_pay_way" property="orderPayWay" jdbcType="VARCHAR" />
+		<result column="ord_time" property="orderTime" jdbcType="TIMESTAMP" />
+		<result column="ord_ip" property="orderIp" jdbcType="VARCHAR" />
+		<result column="ord_ref_url" property="orderRefUrl" jdbcType="VARCHAR" />
+		<result column="ord_period" property="orderPeriod" jdbcType="SMALLINT" />
+		<result column="expire_time" property="expireTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="is_refund" property="isRefund" jdbcType="VARCHAR" />
+		<result column="success_refund_amount" property="successRefundAmount"
+			jdbcType="INTEGER" />
+		<result column="transaction_id" property="transactionId"
+			jdbcType="VARCHAR" />
+		<result column="prepare_id" property="prepareId" jdbcType="VARCHAR" />
+		<result column="device_info" property="deviceInfo" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="OrderColumn">
+		ord_id, out_trade_no, out_trade_type, user_id, ord_amount,
+		ord_from,
+		ord_status,
+		ord_pay_type, ord_pay_way, ord_time, ord_ip,
+		ord_ref_url, ord_period, expire_time,
+		create_time, end_time, is_refund,
+		success_refund_amount,
+		transaction_id, prepare_id,
+		device_info
+	</sql>
+
+	<select id="selectByColumn" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from order
+		where ord_id = #{orderId}
+	</select>
+
+	<insert id="insert" parameterType="org.huasi.car.order.entity.Order">
+		insert into order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				ord_id,
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no,
+			</if>
+			<if test="outTradeType != null">
+				out_trade_type,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="orderAmount != null">
+				ord_amount,
+			</if>
+			<if test="orderFrom != null">
+				ord_from,
+			</if>
+			<if test="orderStatus != null">
+				ord_status,
+			</if>
+			<if test="orderPayType != null">
+				ord_pay_type,
+			</if>
+			<if test="orderPayWay != null">
+				ord_pay_way,
+			</if>
+			<if test="orderTime != null">
+				ord_time,
+			</if>
+			<if test="orderIp != null">
+				ord_ip,
+			</if>
+			<if test="orderRefUrl != null">
+				ord_ref_url,
+			</if>
+			<if test="orderPeriod != null">
+				ord_period,
+			</if>
+			<if test="expireTime != null">
+				expire_time,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="isRefund != null">
+				is_refund,
+			</if>
+			<if test="successRefundAmount != null">
+				success_refund_amount,
+			</if>
+			<if test="transactionId != null">
+				transaction_id,
+			</if>
+			<if test="prepareId != null">
+				prepare_id,
+			</if>
+			<if test="deviceInfo != null">
+				device_info,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="outTradeNo != null">
+				#{outTradeNo},
+			</if>
+			<if test="outTradeType != null">
+				#{outTradeType},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="orderAmount != null">
+				#{orderAmount},
+			</if>
+			<if test="orderFrom != null">
+				#{orderFrom},
+			</if>
+			<if test="orderStatus != null">
+				#{orderStatus},
+			</if>
+			<if test="orderPayType != null">
+				#{orderPayType},
+			</if>
+			<if test="orderPayWay != null">
+				#{orderPayWay},
+			</if>
+			<if test="orderTime != null">
+				#{orderTime},
+			</if>
+			<if test="orderIp != null">
+				#{orderIp},
+			</if>
+			<if test="orderRefUrl != null">
+				#{orderRefUrl},
+			</if>
+			<if test="orderPeriod != null">
+				#{orderPeriod},
+			</if>
+			<if test="expireTime != null">
+				#{expireTime},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			<if test="isRefund != null">
+				#{isRefund},
+			</if>
+			<if test="successRefundAmount != null">
+				#{successRefundAmount},
+			</if>
+			<if test="transactionId != null">
+				#{transactionId},
+			</if>
+			<if test="prepareId != null">
+				#{prepareId},
+			</if>
+			<if test="deviceInfo != null">
+				#{deviceInfo},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByColumn" parameterType="org.huasi.car.order.entity.Order">
+		update order
+		<set>
+			<if test="outTradeNo != null">
+				out_trade_no = #{outTradeNo},
+			</if>
+			<if test="outTradeType != null">
+				out_trade_type = #{outTradeType},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="orderAmount != null">
+				ord_amount = #{orderAmount},
+			</if>
+			<if test="orderFrom != null">
+				ord_from = #{orderFrom},
+			</if>
+			<if test="orderStatus != null">
+				ord_status = #{orderStatus},
+			</if>
+			<if test="orderPayType != null">
+				ord_pay_type = #{orderPayType},
+			</if>
+			<if test="orderPayWay != null">
+				ord_pay_way = #{orderPayWay},
+			</if>
+			<if test="orderTime != null">
+				ord_time = #{orderTime},
+			</if>
+			<if test="orderIp != null">
+				ord_ip = #{orderIp},
+			</if>
+			<if test="orderRefUrl != null">
+				ord_ref_url = #{orderRefUrl},
+			</if>
+			<if test="orderPeriod != null">
+				ord_period = #{orderPeriod},
+			</if>
+			<if test="expireTime != null">
+				expire_time = #{expireTime},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime},
+			</if>
+			<if test="isRefund != null">
+				is_refund = #{isRefund},
+			</if>
+			<if test="successRefundAmount != null">
+				success_refund_amount =
+				#{successRefundAmount},
+			</if>
+			<if test="transactionId != null">
+				transaction_id = #{transactionId},
+			</if>
+			<if test="prepareId != null">
+				prepare_id = #{prepareId},
+			</if>
+			<if test="deviceInfo != null">
+				device_info = #{deviceInfo},
+			</if>
+		</set>
+		<where>
+			<if test="orderId != null">
+				ord_id = #{orderId}
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no = #{outTradeNo},
+			</if>
+		</where>
+	</update>
+</mapper>

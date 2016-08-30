@@ -1,0 +1,8 @@
+# token field
+token.field=_token
+
+## privateKey
+token.privateKey=123
+
+## BASE64 DES MD5 SHA HMAC RSA
+token.algorithm=MD5

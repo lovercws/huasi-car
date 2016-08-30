@@ -1,0 +1,23 @@
+package org.huasi.car.merchant.service.impl;
+
+import java.util.Date;
+
+import org.huasi.car.merchant.dao.MerCollectDao;
+import org.huasi.car.merchant.entity.MerCollect;
+import org.huasi.car.merchant.service.MerCollectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MerCollectServiceImpl implements MerCollectService{
+	
+	@Autowired
+	private MerCollectDao merCollectDao;
+
+	@Override
+	public MerCollect collectMerchant(MerCollect merCollect) {
+		merCollect.setCollectCreateTime(new Date());
+		return merCollectDao.insert(merCollect);
+	}
+
+}

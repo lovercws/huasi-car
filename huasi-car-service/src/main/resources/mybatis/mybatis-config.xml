@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!--配置全局属性 -->
+	<settings>
+		<!-- 开启全局缓存 -->
+		<setting name="cacheEnabled" value="true" />
+		<!--使用jdbc的getGeneratekeys获取自增主键值 -->
+		<setting name="useGeneratedKeys" value="true" />
+		<!--使用列别名替换别名 默认true -->
+		<setting name="useColumnLabel" value="true" />
+		<!--开启驼峰命名转换Table:create_time到 Entity(createTime) -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<!-- 配置方言 -->
+	<typeAliases>
+		<typeAlias type="org.huasi.car.user.entity.AppUser" alias="appUser" />
+		<typeAlias type="org.huasi.car.user.entity.AppUserCar"
+			alias="appUserCar" />
+
+		<typeAlias type="org.huasi.car.merchant.entity.MerClassify"
+			alias="merClassify" />
+		<typeAlias type="org.huasi.car.merchant.entity.Merchant"
+			alias="merchant" />
+		<typeAlias type="org.huasi.car.merchant.entity.MerService"
+			alias="merService" />
+
+		<typeAlias type="org.huasi.car.log.entity.AppUserRegisterLog"
+			alias="appUserRegisterLog" />
+		<typeAlias type="org.huasi.car.log.entity.MerSearchLog"
+			alias="merSearchLog" />
+
+		<typeAlias type="org.huasi.car.comment.entity.MerOrdComment"
+			alias="merOrdComment" />
+		<typeAlias type="org.huasi.car.comment.entity.MerOrdCommLike"
+			alias="merOrdCommLike" />
+
+		<typeAlias type="org.huasi.car.system.entity.SysFeedback"
+			alias="sysFeedback" />
+
+		<typeAlias type="org.huasi.car.system.entity.SysImageCarousel"
+			alias="sysImageCarousel" />
+
+		<typeAlias type="org.huasi.car.info.entity.ActiveComment"
+			alias="activeComment" />
+	</typeAliases>
+
+	<!-- 配置映射文件 -->
+	<mappers>
+		<mapper resource="mybatis/mapper/user/AppUserMapper.xml" />
+		<mapper resource="mybatis/mapper/user/AppUserCarMapper.xml" />
+
+		<mapper resource="mybatis/mapper/merchant/MerClassifyMapper.xml" />
+		<mapper resource="mybatis/mapper/merchant/MerOrdRuleMapper.xml" />
+		<mapper resource="mybatis/mapper/merchant/MerchantMapper.xml" />
+
+		<mapper resource="mybatis/mapper/system/SysAreaMapper.xml" />
+		<mapper resource="mybatis/mapper/system/SysCityMapper.xml" />
+		<mapper resource="mybatis/mapper/system/SysProvinceMapper.xml" />
+
+		<mapper resource="mybatis/mapper/log/AppUserRegisterLogMapper.xml" />
+		<mapper resource="mybatis/mapper/log/MerSearchLogMapper.xml" />
+
+		<mapper resource="mybatis/mapper/system/SysCarBrandMapper.xml" />
+		<mapper resource="mybatis/mapper/system/SysFeedbackMapper.xml" />
+		<mapper resource="mybatis/mapper/system/SysHelperMapper.xml" />
+		<mapper resource="mybatis/mapper/system/SysImageCarouselMapper.xml" />
+
+		<mapper resource="mybatis/mapper/merchant/MerCollectMapper.xml" />
+
+		<mapper resource="mybatis/mapper/info/ActiveClassifyMapper.xml" />
+		<mapper resource="mybatis/mapper/info/ActiveMapper.xml" />
+		<mapper resource="mybatis/mapper/info/ActiveCommentMapper.xml" />
+		<mapper resource="mybatis/mapper/info/ActiveLikeMapper.xml" />
+		
+		<mapper resource="mybatis/mapper/merchant/MerServiceMapper.xml" />
+		<mapper resource="mybatis/mapper/comment/MerOrdCommentMapper.xml" />
+		<mapper resource="mybatis/mapper/comment/MerOrdCommLikeMapper.xml" />
+		<mapper resource="mybatis/mapper/order/OrderMapper.xml" />
+		<mapper resource="mybatis/mapper/order/OrdDetailMapper.xml" />
+
+	</mappers>
+</configuration>

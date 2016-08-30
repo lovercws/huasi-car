@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.system.dao.impl.SysProvinceDaoImpl" >
+
+  <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->	
+  <cache type="org.mybatis.caches.ehcache.EhcacheCache" readOnly="true"/>
+  
+  <resultMap id="SysProvinceResultMap" type="org.huasi.car.system.entity.SysProvince" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="p_code" property="pCode" jdbcType="VARCHAR" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="p_sname" property="pSname" jdbcType="VARCHAR" />
+    <result column="p_pinying" property="pPinying" jdbcType="VARCHAR" />
+    <result column="p_py" property="pPy" jdbcType="VARCHAR" />
+    <result column="p_abb" property="pAbb" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="SysProvinceColumn" >
+    p_id, p_code, p_name, p_sname, p_pinying, p_py,p_abb
+  </sql>
+  
+  <!-- 获取所有省 -->
+  <select id="listByColumn" resultMap="SysProvinceResultMap" parameterType="map" >
+    select 
+    <include refid="SysProvinceColumn" />
+    from sys_province
+  </select>
+ 
+</mapper>

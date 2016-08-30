@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mer_ord_oper_log">
+	<resultMap id="BaseResultMap" type="com.huasi.car.log.bean.MerOrdOperLog">
+		<id column="ol_id" property="ordlogId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="ord_code" property="ordCode" jdbcType="VARCHAR" />
+		<result column="ol_type" property="ordlogType" jdbcType="SMALLINT" />
+		<result column="ol_desc" property="ordlogDesc" jdbcType="VARCHAR" />
+		<result column="ol_create_time" property="ordlogCreateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ol_id, user_id, ord_code, ol_type, ol_desc, ol_create_time
+	</sql>
+</mapper>

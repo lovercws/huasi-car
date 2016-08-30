@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.huasi.car.merchant.dao.impl.MerchantSrvDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"
+		flushInterval="300" readOnly="false" />
+
+	<resultMap id="MerchantSrvResultMap" type="org.huasi.car.merchant.entity.MerService">
+		<id column="srv_id" property="srvId" jdbcType="INTEGER" />
+		<result column="mer_id" property="merId" jdbcType="INTEGER" />
+		<result column="cl_id" property="classifyId" jdbcType="INTEGER" />
+		<result column="srv_name" property="srvName" jdbcType="VARCHAR" />
+		<result column="srv_cur_price" property="srvCurPrice" jdbcType="REAL" />
+		<result column="srv_rel_price" property="srvRelPrice" jdbcType="REAL" />
+		<result column="srv_sell_count" property="srvSellCount"
+			jdbcType="INTEGER" />
+		<result column="srv_val_count" property="srvValCount" jdbcType="INTEGER" />
+		<result column="srv_score_star" property="srvScoreStar"
+			jdbcType="INTEGER" />
+		<result column="srv_facade_img" property="srvFacadeImg"
+			jdbcType="VARCHAR" />
+		<result column="srv_desc" property="srvDesc" jdbcType="VARCHAR" />
+		<result column="srv_create_time" property="srvCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="srv_status" property="srvStatus" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="MerchantSrvColumn">
+		srv_id, mer_id, cl_id, srv_name, srv_cur_price,
+		srv_rel_price,
+		srv_sell_count, srv_val_count,
+		srv_score_star,
+		srv_facade_img, srv_desc, srv_create_time, srv_status
+	</sql>
+
+	<!-- 获取商铺下的所有服务 -->
+	<select id="listByColumn" resultMap="MerchantSrvResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="MerchantSrvColumn" />
+		from mer_service
+		where mer_id = #{merId}
+	</select>
+
+	<!-- 获取商铺下的所有服务 -->
+	<select id="getRecommentMerchantService" resultMap="MerchantSrvResultMap"
+		parameterType="map">
+		select s.* from mer_recom_serv rs inner join mer_service s
+		on(s.srv_id=rs.srv_id)
+		<where>
+			<if test="srvStatus!=null and srvStatus!=''">
+				s.srv_status=#{srvStatus}
+			</if>
+		</where>
+		order by rs.rs_order desc
+	</select>
+
+	<!-- 根据服务id获取服务详情 -->
+	<select id="getMerServiceBySrvId" resultMap="MerchantSrvResultMap"
+		parameterType="list">
+		select
+		<include refid="MerchantSrvColumn" />
+		from mer_service
+		where srv_id in
+		<foreach item="srvId" collection="list" separator="," open="("
+			close=")" index="">
+			#{srvId}
+		</foreach>
+	</select>
+</mapper>
