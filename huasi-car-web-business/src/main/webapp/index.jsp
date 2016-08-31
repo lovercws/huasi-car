@@ -22,8 +22,17 @@
   background-color: #f5f5f5;
 }
 </style>
+<script type="text/javascript">
+function changeCaptchaCode(){
+	var imgSrc=$("#captchaCodeImg").src;
+	$("#captchaCodeImg").src=imgSrc+"?date="+new Date().getTime();
+}
+</script>
 </head>
 <body>
-	<jsp:forward page="/portal/login/goLogin" />
+<div align="center">
+ <font color="green"></font>
+</div>
+	首页
 </body>
 </html>

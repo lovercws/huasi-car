@@ -63,7 +63,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
 			//PmsOperator operator = pmsOperatorService.findOperatorByLoginName(username);
 			//Subject subject = SecurityUtils.getSubject();
 			//Session session = subject.getSession();
-			//session.setAttribute("PmsOperator", operator);
+			//session.setAttribute("User", operator);
 		}
 		return matches;
 	}

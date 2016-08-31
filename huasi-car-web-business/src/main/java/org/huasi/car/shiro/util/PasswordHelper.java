@@ -19,9 +19,10 @@ import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
+import org.huasi.car.user.entity.MerUser;
 
 /**
- * @desc 生成密码工具类 
+ * @desc 生成密码工具类
  * @author ganliang
  * @version 2016年8月29日 上午11:18:34
  */
@@ -35,24 +36,37 @@ public class PasswordHelper {
 
 	private static int hashIterations = Integer.valueOf(hashIteration);
 
-	public static void encryptPassword(String password) {
+	/**
+	 * 加密密码
+	 * @param merUser
+	 */
+	public static void encryptPassword(MerUser merUser) {
+		merUser.setSalt(randomNumberGenerator.nextBytes().toHex());
+		String credentialsSalt = merUser.getUsername() + merUser.getSalt();
+		String newPassword = new SimpleHash(algorithmName, merUser.getPassword(),
+				ByteSource.Util.bytes(credentialsSalt), hashIterations).toHex();
 
-		String salt=randomNumberGenerator.nextBytes().toHex();
-
-		String newPassword = new SimpleHash(algorithmName, password, ByteSource.Util.bytes(salt), hashIterations).toHex();
-
+		merUser.setPassword(newPassword);
 	}
 
 	/**
 	 * 加密密码
-	 * 
 	 * @param loginPwd 明文密码
-	 * @param salt
+	 * @param salt 密文
 	 * @return
 	 */
 	public static String getPwd(String loginPwd, String salt) {
-		String newPassword = new SimpleHash(algorithmName, loginPwd, ByteSource.Util.bytes(salt), hashIterations).toHex();
+		String newPassword = new SimpleHash(algorithmName, loginPwd, ByteSource.Util.bytes(salt), hashIterations)
+				.toHex();
 		return newPassword;
+	}
+	
+	public static void main(String[] args) {
+		MerUser user=new MerUser();
+		user.setUsername("admin");
+		user.setPassword("123");
+		encryptPassword(user);
+		System.out.println(user);
 	}
 
 }

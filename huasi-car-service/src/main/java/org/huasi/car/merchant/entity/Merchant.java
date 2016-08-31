@@ -33,8 +33,11 @@ public class Merchant implements Serializable {
 	private String merPhone;// 商铺的手机号码
 	private String merDetailArea;// 商铺的详细地址
 
+	private String pName;// 商铺的区域 省区域名称
 	private String pCode;// 商铺的区域 省区域内码
+	private String cName;// 市区域名称
 	private String cCode;// 市区域内码
+	private String aName;// 地区区域名称
 	private String aCode;// 地区区域内码
 
 	private Short merImgCount;// 商铺描述的图片数量（商铺的图片数量小于100）
@@ -43,6 +46,8 @@ public class Merchant implements Serializable {
 
 	private Date merCreateTime;// 店铺创建时间
 	private Integer merUserId;// 创建店铺的商家用户
+
+	private String classifyNames;// 商铺分类名称集合（分类以‘,’号分隔）
 
 	public Integer getMerId() {
 		return merId;
@@ -196,6 +201,30 @@ public class Merchant implements Serializable {
 		this.aCode = aCode;
 	}
 
+	public String getpName() {
+		return pName;
+	}
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+
+	public String getcName() {
+		return cName;
+	}
+
+	public void setcName(String cName) {
+		this.cName = cName;
+	}
+
+	public String getaName() {
+		return aName;
+	}
+
+	public void setaName(String aName) {
+		this.aName = aName;
+	}
+
 	public Short getMerImgCount() {
 		return merImgCount;
 	}
@@ -254,6 +283,14 @@ public class Merchant implements Serializable {
 
 	public void setOrdruleId(String ordruleId) {
 		this.ordruleId = ordruleId;
+	}
+
+	public String getClassifyNames() {
+		return classifyNames;
+	}
+
+	public void setClassifyNames(String classifyNames) {
+		this.classifyNames = classifyNames;
 	}
 
 	///////////////////////////////

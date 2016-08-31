@@ -8,7 +8,7 @@ import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
 
 /**
- * @desc 验证码验证过滤器 
+ * @desc 验证码验证过滤器
  * @author ganliang
  * @version 2016年8月29日 上午10:51:00
  */
@@ -33,7 +33,8 @@ public class RcCaptchaValidateFilter extends AccessControlFilter {
 	}
 
 	@Override
-	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
+			throws Exception {
 		// 1、设置验证码是否开启属性，页面可以根据该属性来决定是否显示验证码
 		request.setAttribute("captchaEbabled", captchaEbabled);
 

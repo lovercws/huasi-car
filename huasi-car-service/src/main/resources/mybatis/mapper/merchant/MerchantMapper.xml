@@ -20,8 +20,11 @@
 		<result column="mer_phone" property="merPhone" jdbcType="VARCHAR" />
 		<result column="mer_detail_area" property="merDetailArea"
 			jdbcType="VARCHAR" />
+		<result column="p_name" property="pName" jdbcType="VARCHAR" />
 		<result column="p_code" property="pCode" jdbcType="VARCHAR" />
+		<result column="c_name" property="cName" jdbcType="VARCHAR" />
 		<result column="c_code" property="cCode" jdbcType="VARCHAR" />
+		<result column="a_name" property="aName" jdbcType="VARCHAR" />
 		<result column="a_code" property="aCode" jdbcType="VARCHAR" />
 		<result column="mer_img_count" property="merImgCount" jdbcType="SMALLINT" />
 		<result column="mer_is_group" property="merIsGroup" jdbcType="BIT" />
@@ -29,6 +32,7 @@
 		<result column="mer_create_time" property="merCreateTime"
 			jdbcType="TIMESTAMP" />
 		<result column="mer_user_id" property="merUserId" jdbcType="INTEGER" />
+		<result column="classify_names" property="classifyNames" />
 	</resultMap>
 	<resultMap id="MerchantDistanceResultMap" type="org.huasi.car.merchant.entity.Merchant">
 		<id column="mer_id" property="merId" jdbcType="INTEGER" />
@@ -49,8 +53,11 @@
 		<result column="mer_phone" property="merPhone" jdbcType="VARCHAR" />
 		<result column="mer_detail_area" property="merDetailArea"
 			jdbcType="VARCHAR" />
+		<result column="p_name" property="pName" jdbcType="VARCHAR" />
 		<result column="p_code" property="pCode" jdbcType="VARCHAR" />
+		<result column="c_name" property="cName" jdbcType="VARCHAR" />
 		<result column="c_code" property="cCode" jdbcType="VARCHAR" />
+		<result column="a_name" property="aName" jdbcType="VARCHAR" />
 		<result column="a_code" property="aCode" jdbcType="VARCHAR" />
 		<result column="mer_img_count" property="merImgCount" jdbcType="SMALLINT" />
 		<result column="mer_is_group" property="merIsGroup" jdbcType="BIT" />
@@ -58,18 +65,16 @@
 		<result column="mer_create_time" property="merCreateTime"
 			jdbcType="TIMESTAMP" />
 		<result column="mer_user_id" property="merUserId" jdbcType="INTEGER" />
+		<result column="classify_names" property="classifyNames" />
 		<result column="distance" property="distance" />
 	</resultMap>
 	<sql id="MerchantColumn">
 		mer_id, mer_code, mer_name, mer_desc, mer_business_hour,
-		mer_facade_img,
-		mer_comp_star,
-		mer_cap_star, mer_serv_star,
-		mer_eva_count, mer_lat, mer_lang, mer_contact,
-		mer_phone,
-		mer_detail_area, p_code, c_code, a_code, mer_img_count, mer_is_group,
-		mer_status,
-		mer_create_time, mer_user_id
+		mer_facade_img,mer_comp_star,mer_cap_star, mer_serv_star,
+		mer_eva_count, mer_lat, mer_lang, mer_contact,mer_phone,
+		mer_detail_area,p_name,p_code,c_name,c_code,a_name,a_code,
+		mer_img_count,mer_is_group,mer_status,mer_create_time, 
+		mer_user_id,classify_names
 	</sql>
 
 	<!-- 获取商户详情 -->
@@ -101,20 +106,18 @@
 		parameterType="map">
 		select
 		<include refid="MerchantColumn" />
-		,
-		2*6378.137*asin(sqrt(pow(sin(0.008726646259971648*(#{userLat}-mer_Lat)),2)+cos(0.17453292519943296*#{userLat})*cos(0.17453292519943296*mer_lat)*pow(sin(0.008726646259971648*(#{userLang}-mer_lang)),2)))
+		,2*6378.137*asin(sqrt(pow(sin(0.008726646259971648*(#{userLat}-mer_Lat)),2)+cos(0.17453292519943296*#{userLat})*cos(0.17453292519943296*mer_lat)*pow(sin(0.008726646259971648*(#{userLang}-mer_lang)),2)))
 		distance
 		from merchant where mer_status=#{merStatus} order by distance
 		asc limit #{beginPageIndex},#{endPageIndex}
 	</select>
 
 	<!-- 智能排序最近的商家 -->
-	<select id="matchMerchantByNearby" resultMap="MerchantResultMap"
+	<select id="matchMerchantByNearby" resultMap="MerchantDistanceResultMap"
 		parameterType="map">
 		select
 		<include refid="MerchantColumn" />
-		,
-		2*6378.137*asin(sqrt(pow(sin(0.008726646259971648*(#{userLat}-mer_Lat)),2)+cos(0.17453292519943296*#{userLat})*cos(0.17453292519943296*mer_lat)*pow(sin(0.008726646259971648*(#{userLang}-mer_lang)),2)))
+		,2*6378.137*asin(sqrt(pow(sin(0.008726646259971648*(#{userLat}-mer_Lat)),2)+cos(0.17453292519943296*#{userLat})*cos(0.17453292519943296*mer_lat)*pow(sin(0.008726646259971648*(#{userLang}-mer_lang)),2)))
 		distance
 		from merchant
 		<where>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ehcache name="es">
-
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
     <diskStore path="java.io.tmpdir"/>
 
     <!-- 登录记录缓存 锁定10分钟 -->

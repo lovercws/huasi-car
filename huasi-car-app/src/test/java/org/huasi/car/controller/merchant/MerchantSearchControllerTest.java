@@ -11,7 +11,7 @@ public class MerchantSearchControllerTest {
 
 	@Test
 	public void search() {
-		String url = "http://192.168.11.88:8081/huasi-car-app/mer/merchant/search";
+		String url = "http://192.168.11.88:8080/huasi-car-app/mer/merchant/search";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("searchContent", "洗车");
 		params.put("userId", "1");

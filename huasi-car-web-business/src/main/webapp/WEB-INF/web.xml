@@ -68,6 +68,7 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
 	<filter>
 		<filter-name>shiroFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -81,6 +82,7 @@
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
 	<filter>
 		<filter-name>rcCaptchaFilter</filter-name>
 		<filter-class>org.huasi.car.shiro.filter.RcCaptchaFilter</filter-class>
@@ -90,22 +92,7 @@
 		<filter-name>rcCaptchaFilter</filter-name>
 		<url-pattern>/rcCaptcha.jpg</url-pattern>
 	</filter-mapping>
-	<error-page>
-		<error-code>400</error-code>
-		<location>/common/error/400.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/common/error/404.jsp</location>
-	</error-page>
-	<error-page>
-		<exception-type>java.lang.Throwable</exception-type>
-		<location>/common/error/500.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/common/error/500.jsp</location>
-	</error-page>
+	
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>

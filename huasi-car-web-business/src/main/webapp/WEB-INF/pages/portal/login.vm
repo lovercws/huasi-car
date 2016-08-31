@@ -59,24 +59,53 @@ body {
   margin-left: 10px;
   margin-top: 20px;
 }
+.form-captchaCode{
+  width: 210px;
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 8px;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-right: 2px;
+}
 </style>
+<script type="text/javascript">
+function changeCaptchaCode(){
+	var imgSrc=$("#captchaCodeImg")[0];
+	imgSrc.src=imgSrc.src+"?date="+new Date().getTime();
+}
+$(function() { 
+    $("#forgetPasswordButton").click(function(){ 
+        window.open('$request.getContextPath()/portal/forgetPassword','_blank');
+     });     
+    $("#registerButton").click(function(){ 
+        window.open('$request.getContextPath()/portal/registering','_blank');
+     });     
+}); 
+</script>
 </head>
 <body>
 	<div class="container">
-      <form class="form-signin">
+      <form class="form-signin" action="$request.getContextPath()/portal/login" method="post">
         <h2 class="form-signin-heading">登录</h2>
-        <label for="inputEmail" class="sr-only">username</label>
-        <input type="text" id="inputEmail" class="form-control" placeholder="手机号/用户名/邮箱" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+        <label for="username" class="sr-only">用户名称</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="手机号/用户名/邮箱" required autofocus>
+        <label for="password" class="sr-only">用户密码</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="密码" required>
+        <input type="text" id="captchaCode" name="captchaCode" class="form-captchaCode" placeholder="验证码" required>
+        <img id="captchaCodeImg" src="$request.getContextPath()/rcCaptcha.jpg" onclick="changeCaptchaCode()">
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> 记住我
+            <input type="checkbox" name="rememberMe" value="true"> 记住我
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="button">登录</button>
-        <button class="btn form-forgetPassword btn-link" type="button">忘记密码</button>
-        <button class="btn form-register btn-link" type="button">免费注册</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        <button id="forgetPasswordButton" class="btn form-forgetPassword btn-link" type="button">忘记密码</button>
+        <button id="registerButton" class="btn form-register btn-link" type="button">免费注册</button>
+        <div align="right" style="margin-top:10px"><font color="red">$!shiroLoginFailure</font></div>
       </form>
     </div>
 </body>

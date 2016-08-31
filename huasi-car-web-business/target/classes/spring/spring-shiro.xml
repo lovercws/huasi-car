@@ -27,8 +27,8 @@
 	<bean id="userRealm" class="org.huasi.car.shiro.realm.UserRealm">
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 		<property name="cachingEnabled" value="false" />
-		<!--<property name="authorizationCachingEnabled" value="true"/> -->
-		<!--<property name="authorizationCacheName" value="authorizationCache"/> -->
+		<property name="authorizationCachingEnabled" value="false"/>
+		<property name="authorizationCacheName" value="authorizationCache"/>
 	</bean>
 
 	<!-- shiro缓存管理器 -->
@@ -90,15 +90,15 @@
 		class="org.huasi.car.shiro.filter.UserPermissionsAuthorizationFilter" />
 	<!-- 注销拦截器 -->
 	<bean id="logout" class="org.apache.shiro.web.filter.authc.LogoutFilter">
-		<property name="redirectUrl" value="/portal/loginAction_goLogin.do" />
+		<property name="redirectUrl" value="/portal/logout" />
 	</bean>
 	<!-- 基于Form表单的身份验证过滤器，为了控制验证码 -->
 	<bean id="authcFilter" class="org.huasi.car.shiro.filter.RcFormAuthenticationFilter">
 		<!-- from表达提交参数的属性命名 -->
-		<property name="usernameParam" value="userName" />
+		<property name="usernameParam" value="username" />
 		<property name="passwordParam" value="password" />
 		<property name="rememberMeParam" value="rememberMe" />
-		<property name="loginUrl" value="/login" />
+		<property name="loginUrl" value="/portal/login" />
 		<property name="failureKeyAttribute" value="shiroLoginFailure" />
 	</bean>
 	<!-- 验证码验证过滤器 -->
@@ -113,8 +113,9 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<!-- 登录controller的mapper地址 -->
-		<property name="loginUrl" value="/login" />
-		<property name="unauthorizedUrl" value="/system/unauthorized.jsp" />
+		<property name="loginUrl" value="/portal/logining" />
+		<property name="successUrl" value="/system/main" />
+		<property name="unauthorizedUrl" value="/portal/logining" />
 		<property name="filters">
 			<util:map>
 				<entry key="authc" value-ref="authcFilter" />
@@ -125,10 +126,12 @@
 		<property name="filterChainDefinitions">
 			<value>
 				<!-- Shiro的Web过滤器 -->
-				/portal/* = anon
+				/rcCaptcha.jpg=anon
 				/favicon.ico=anon
-				/login = rcCaptchaValidate,authc
-				/logout = logout
+				/portal/login = rcCaptchaValidate,authc
+				/portal/logout = logout
+				/portal/* = anon
+				/system/**=authc,perms
 			</value>
 		</property>
 	</bean>

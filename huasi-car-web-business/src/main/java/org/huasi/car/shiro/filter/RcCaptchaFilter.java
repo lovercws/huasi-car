@@ -25,8 +25,10 @@ public class RcCaptchaFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-		int width = 57;// 图像宽度
-		int height = 21;// 图像高度
+		//int width = 57;// 图像宽度
+		//int height = 21;// 图像高度
+		int width = 80;// 图像宽度
+		int height = 40;// 图像高度
 		// 定义输出格式
 		response.setContentType("image/jpeg");
 		ServletOutputStream out = response.getOutputStream();
@@ -39,7 +41,7 @@ public class RcCaptchaFilter extends OncePerRequestFilter {
 		gc.setColor(getRandColor(200, 250));
 		gc.fillRect(0, 0, width, height);
 		// 设置图形上下文环境字体
-		gc.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		gc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		// 随机产生200条干扰线条，使图像中的认证码不易被其他分析程序探测到
 		gc.setColor(getRandColor(160, 200));
 		for (int i = 0; i < 200; i++) {
@@ -64,7 +66,7 @@ public class RcCaptchaFilter extends OncePerRequestFilter {
 			rn = String.valueOf(r.nextInt(10));
 			rs += rn;
 			gc.setColor(new Color(20 + r.nextInt(110), 20 + r.nextInt(110), 20 + r.nextInt(110)));
-			gc.drawString(rn, 13 * i + 1, 16);
+			gc.drawString(rn, 20 * i + 6, 27);
 		}
 
 		// 释放图形上下文环境
